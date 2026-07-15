@@ -1,0 +1,1 @@
+ISSUE: VPC peering connection not working	Resources in peered VPCs cannot communicate.	Senario: No route to host; route tables missing peering routes; Symptoms: CIDR overlap; security groups blocking traffic.
