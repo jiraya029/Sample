@@ -1,1 +1,2 @@
-Issue :Lambda function timing out	Lambda executes but always times out before completion.	Scenario: Task timed out after X seconds; memory allocation insufficient; VPC configuration causing cold start delays; Symptoms: infinite loop in code.
+Issue :Lambda function timing out	Lambda executes but always times out before completion.	Scenario: Task timed out after X seconds; memory allocation insufficient; VPC configuration causing cold start delays; infinite loop in code.
+Issue :CloudFormation stack rollback triggered	Scenario :Stack creation fails and initiates rollback.	Symptoms: :Resource creation failed; circular dependency detected; parameter validation error;  insufficient IAM permissions.
