@@ -1,5 +1,6 @@
 Issue :Lambda function timing out	Lambda executes but always times out before completion.	Scenario: Task timed out after X seconds; memory allocation insufficient; VPC configuration causing cold start delays; infinite loop in code.
 Issue :CloudFormation stack rollback triggered	Scenario :Stack creation fails and initiates rollback.	Symptoms: :Resource creation failed; circular dependency detected; parameter validation error;  insufficient IAM permissions.
+ISSUE	EFS File System Is Read-Only	Scenario :ABC Technologies has configured multiple EC2 instances to mount an Amazon EFS file system.  SymptomsOne of the instances reports that the file system is mounted in read-only mode.	Read-only mount; write operations fail; mount options issue.
 Azure Data Loading and Unloading:
 Cost Management and Resource Monitoring and Cost control Techniques
 Virtual Warehouse Scalling
