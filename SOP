@@ -3,6 +3,7 @@ Issue :CloudFormation stack rollback triggered	Scenario :Stack creation fails an
 ISSUE	EFS File System Is Read-Only	Scenario :ABC Technologies has configured multiple EC2 instances to mount an Amazon EFS file system.  SymptomsOne of the instances reports that the file system is mounted in read-only mode.	Read-only mount; write operations fail; mount options issue.
 Issue : DynamoDB Stream Processing Fails	Scenario : ABC Technologies uses DynamoDB Streams with an AWS Lambda function to process table changes. The Lambda function is not being triggered when items are added or modified.	Symptoms : Stream trigger fails; Lambda not invoked; event source mapping issue.
 Issue : EC2 Instance Metadata Service Not Accessible	Scenario : ABC Technologies' application running on EC2 cannot retrieve instance metadata. API calls to 169.254.169.254 are timing out.	Symtomps : IMDS not accessible; IMDSv2 required; hop limit issue; firewall blocking.
+Issue : EC2 Instance Connect Not Working	Scenario : ABC Technologies is attempting to use EC2 Instance Connect for SSH access. The connection fails with a permission denied error.	Symtomps : Instance Connect fails; no public IP; security group SSH rule; IAM permissions missing.
 Azure Data Loading and Unloading:
 Cost Management and Resource Monitoring and Cost control Techniques
 Virtual Warehouse Scalling
