@@ -2,6 +2,7 @@ Issue :Lambda function timing out	Lambda executes but always times out before co
 Issue :CloudFormation stack rollback triggered	Scenario :Stack creation fails and initiates rollback.	Symptoms: :Resource creation failed; circular dependency detected; parameter validation error;  insufficient IAM permissions.
 ISSUE	EFS File System Is Read-Only	Scenario :ABC Technologies has configured multiple EC2 instances to mount an Amazon EFS file system.  SymptomsOne of the instances reports that the file system is mounted in read-only mode.	Read-only mount; write operations fail; mount options issue.
 Issue : DynamoDB Stream Processing Fails	Scenario : ABC Technologies uses DynamoDB Streams with an AWS Lambda function to process table changes. The Lambda function is not being triggered when items are added or modified.	Symptoms : Stream trigger fails; Lambda not invoked; event source mapping issue.
+Issue : EC2 Instance Metadata Service Not Accessible	Scenario : ABC Technologies' application running on EC2 cannot retrieve instance metadata. API calls to 169.254.169.254 are timing out.	Symtomps : IMDS not accessible; IMDSv2 required; hop limit issue; firewall blocking.
 Azure Data Loading and Unloading:
 Cost Management and Resource Monitoring and Cost control Techniques
 Virtual Warehouse Scalling
