@@ -7,7 +7,8 @@ Issue : EC2 Instance Connect Not Working	Scenario : ABC Technologies is attempti
 ---Harsha---
 Issue: Lambda Function URL Returning 403 Error	ABC Technologies has created a Lambda Function URL for direct HTTP access. Scenario :Requests to the URL return 403 Forbidden errors.	Syptoms : Function URL 403; auth type mismatch; resource policy blocking; CORS issue.
 Issue: SNS Dead Letter Queue Not Receiving Failed Messages	Scenario: ABC Technologies has configured a dead letter queue for SNS message delivery failures. Failed messages are not appearing in the DLQ.	 Symtomps: DLQ empty; redrive policy missing; permissions on SQS queue; message attributes issue.
-Issue: SNS Dead Letter Queue Not Receiving Failed Messages	ABC Technologies has configured a dead letter queue for SNS message delivery failures. Scenario : Failed messages are not appearing in the DLQ.	Symtomps : DLQ empty; redrive policy missing; permissions on SQS queue; message attributes issue.
+RDS Performance Insights Not Showing Data	ABC Technologies has enabled Performance Insights for their RDS database. The dashboard shows no data or limited metrics.	Performance Insights empty; retention expired; unsupported instance class; IAM permissions.
+ 
 Azure Data Loading and Unloading:
 Cost Management and Resource Monitoring and Cost control Techniques
 Virtual Warehouse Scalling
