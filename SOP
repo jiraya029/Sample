@@ -4,8 +4,10 @@ ISSUE	EFS File System Is Read-Only	Scenario :ABC Technologies has configured mul
 Issue : DynamoDB Stream Processing Fails	Scenario : ABC Technologies uses DynamoDB Streams with an AWS Lambda function to process table changes. The Lambda function is not being triggered when items are added or modified.	Symptoms : Stream trigger fails; Lambda not invoked; event source mapping issue.
 Issue : EC2 Instance Metadata Service Not Accessible	Scenario : ABC Technologies' application running on EC2 cannot retrieve instance metadata. API calls to 169.254.169.254 are timing out.	Symtomps : IMDS not accessible; IMDSv2 required; hop limit issue; firewall blocking.
 Issue : EC2 Instance Connect Not Working	Scenario : ABC Technologies is attempting to use EC2 Instance Connect for SSH access. The connection fails with a permission denied error.	Symtomps : Instance Connect fails; no public IP; security group SSH rule; IAM permissions missing.
- 
+---Harsha---
+Issue: Lambda Function URL Returning 403 Error	ABC Technologies has created a Lambda Function URL for direct HTTP access. Scenario :Requests to the URL return 403 Forbidden errors.	Syptoms : Function URL 403; auth type mismatch; resource policy blocking; CORS issue.
 Issue: SNS Dead Letter Queue Not Receiving Failed Messages	Scenario: ABC Technologies has configured a dead letter queue for SNS message delivery failures. Failed messages are not appearing in the DLQ.	 Symtomps: DLQ empty; redrive policy missing; permissions on SQS queue; message attributes issue.
+Issue: SNS Dead Letter Queue Not Receiving Failed Messages	ABC Technologies has configured a dead letter queue for SNS message delivery failures. Scenario : Failed messages are not appearing in the DLQ.	Symtomps : DLQ empty; redrive policy missing; permissions on SQS queue; message attributes issue.
 Azure Data Loading and Unloading:
 Cost Management and Resource Monitoring and Cost control Techniques
 Virtual Warehouse Scalling
