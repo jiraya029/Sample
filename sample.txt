@@ -1,0 +1,197 @@
+ASSIGNMENT
+Title
+Conceptual IoT Monitoring System Design
+1. Background / Problem Statement
+IoT devices generate continuous sensor data from factories, smart devices, and monitoring systems. Organizations face challenges such as:
+Monitoring devices in real time
+Storing large volumes of sensor data
+Identifying abnormal readings
+Displaying live monitoring dashboards
+Managing structured and semi-structured data
+The organization wants to design a simple IoT Monitoring System Architecture using database, streaming, and analytics concepts.
+2. Overall Objective
+Design a beginner-friendly IoT monitoring solution that:
+Collects sensor data
+Stores sensor readings
+Displays monitoring dashboards
+Detects abnormal sensor values
+Demonstrates data flow understanding using SQL/NoSQL concepts
+3. Learning Outcomes
+By completing this assignment, students will be able to:
+Understand IoT architecture basics
+Design simple data flow diagrams
+Understand SQL vs NoSQL usage
+Create basic monitoring database designs
+Understand real-time analytics concepts
+Build simple reporting dashboards
+Explain end-to-end IoT monitoring workflows
+4. Tools & Technologies
+Component	Technology
+Database	MySQL / PostgreSQL
+Query Language	SQL
+Design Tool	Draw.io / Lucidchart
+Reporting	Excel / Power BI (Optional)
+Optional Concepts	NoSQL, Streaming
+Documentation	Architecture Notes
+
+5. Phase-wise Summary
+Phase	Activity	Duration
+1	Problem Understanding & Planning	45 mins
+2	Architecture Design & Data Flow	1 hr
+3	Database & Component Design	1 hr
+4	Sample Data Creation	45 mins
+5	SQL Query & Monitoring Reports	1 hr 45 mins
+6	Alert Logic & Basic Automation	1 hr 15 mins
+7	Dashboard & Reporting Design	30 mins
+8	Documentation & Presentation	1 hr
+
+6. Assignment Tasks
+Phase 1 — Problem Understanding & Planning
+Duration: 45 mins
+Tasks:
+Understand IoT monitoring requirements 
+Identify stakeholders (operators, analysts, admins) 
+Identify major components 
+Define monitoring requirements 
+Prepare assumptions document 
+Deliverables:
+Requirement notes 
+Component list 
+Assumptions document 
+Expected Components:
+Sensors 
+Gateway/System 
+Database 
+Monitoring Dashboard 
+Alert System 
+
+Phase 2 — Architecture Design & Data Flow
+Duration: 1 Hour
+Tasks:
+Draw high-level architecture diagram 
+Show sensor-to-database data flow 
+Show dashboard reporting flow 
+Explain real-time monitoring conceptually 
+Identify structured vs semi-structured data 
+Deliverables:
+Architecture Diagram 
+Data Flow Diagram 
+
+Phase 3 — Database & Component Design
+Duration: 1 Hour
+Tasks:
+Design database tables for sensors and readings 
+Define relationships between components 
+Identify SQL and NoSQL usage scenarios 
+Create simple ER diagram 
+Define monitoring fields and status tracking 
+Deliverables:
+ER Diagram 
+Database Schema Design 
+
+Phase 4 — Sample Data Creation
+Duration: 45 mins
+Tasks:
+Insert sample sensor data 
+Create normal and abnormal readings 
+Create device status records 
+Prepare monitoring sample datasets 
+Deliverables:
+Sample Dataset 
+INSERT scripts 
+
+Phase 5 — SQL Query & Monitoring Reports
+Duration: 1 Hour 45 mins
+Tasks:
+Write SQL queries for high-temperature alerts 
+Generate sensor activity reports 
+Create device-wise monitoring reports 
+Generate average sensor readings 
+Create abnormal reading detection queries using SQL conditions and aggregation 
+Deliverables:
+SQL Query Scripts 
+Monitoring Reports 
+
+Phase 6 — Alert Logic & Basic Automation
+Duration: 1 Hour 15 mins
+Tasks:
+Create simple alert logic using SQL/PLSQL 
+Identify abnormal sensor values 
+Generate alert records for threshold violations 
+Create simple stored procedures/functions 
+Automate sensor status updates 
+Deliverables:
+PL/SQL Scripts 
+Alert Logic Documentation 
+
+Phase 7 — Dashboard & Reporting Design
+Duration: 30 mins
+Tasks:
+Design monitoring dashboard layout 
+Create reporting ideas for live monitoring 
+Design alert summary reports 
+Create basic KPI ideas for IoT monitoring 
+Deliverables:
+Dashboard Design 
+Reporting Mockups 
+
+Phase 8 — Documentation & Presentation
+Duration: 1 Hour
+Tasks:
+Prepare architecture documentation 
+Explain design decisions 
+Present monitoring workflow 
+Demonstrate SQL reports and alert logic 
+Explain end-to-end IoT monitoring process 
+Deliverables:
+Final Documentation 
+Presentation
+7. Dataset / Table Description
+Table	Description
+Sensors	Stores sensor master details
+Sensor_Readings	Stores live sensor readings
+Devices	Stores device/gateway details
+Alerts	Stores abnormal reading alerts
+Monitoring_Status	Stores device health status
+
+6. Sample Data Structure: Sensors
+Sensor_ID	Sensor_Name	Sensor_Type	Location
+SEN101	Temp Sensor A	Temperature	Factory A
+SEN102	Pressure Sensor B	Pressure	Factory B
+Sensor_Readings
+Reading_ID	Sensor_ID	Reading_Value	Reading_Time
+R101	SEN101	78	10:00 AM
+R102	SEN102	110	10:05 AM
+Devices
+Device_ID	Device_Name	Status	Location
+D101	Gateway A	Active	Mumbai
+D102	Gateway B	Active	Pune
+Alerts
+Alert_ID	Sensor_ID	Alert_Type	Alert_Status
+A101	SEN101	High Temperature	Open
+A102	SEN102	High Pressure	Closed
+Monitoribg_Status
+Status_ID	Device_ID	Health_Status	Last_Updated
+MS101	D101	Healthy	10:15 AM
+MS102	D102	Warning	10:20 AM
+
+9. Expected Deliverables
+Students must submit:
+Architecture Diagram
+ER Diagram
+SQL Scripts
+PL/SQL Scripts
+Monitoring Reports
+Dashboard Design
+Final Documentation
+Presentation
+10. Total Duration :8 Hours
+11. Final Outcome
+At the end of this assignment, students should be able to:
+Understand IoT monitoring system architecture 
+Design simple data pipelines conceptually 
+Create monitoring databases using SQL 
+Generate monitoring and alert reports 
+Apply SQL and PL/SQL concepts for IoT use cases 
+Explain real-time monitoring workflows 
+Present architecture and reporting solutions confidently
