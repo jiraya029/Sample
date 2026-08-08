@@ -477,3 +477,4 @@ https://assessment-backend-production-a284.up.railway.app/api/login
 fbS$H;Z&Sx3Vc(3.M$?.$6vm!LF6JcUu
 assessment-db-recovery.cop4aqk688ix.us-east-1.rds.amazonaws.com
 assessment-recovery.cop4aqk688ix.us-east-1.rds.amazonaws.com
+psql "host=database-1.cqlwgyoq41rb.us-east-1.rds.amazonaws.com port=5432 dbname=postgres user=postgres sslmode=verify-full sslrootcert=./global-bundle.pem"
