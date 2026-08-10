@@ -480,3 +480,24 @@ assessment-recovery.cop4aqk688ix.us-east-1.rds.amazonaws.com
 psql "host=database-1.cqlwgyoq41rb.us-east-1.rds.amazonaws.com port=5432 dbname=postgres user=postgres sslmode=verify-full sslrootcert=./global-bundle.pem"
 database-1.cqlwgyoq41rb.us-east-1.rds.amazonaws.com
 can i get over one lakhs plus real time datasets for these schema diagram i need unclean and cleaned mixed data  and the data has to be in different format like .csv , .txt and .json
+
+s3://wealthwizard-raw/
+├── user/
+│   └── dt=2026-08-10/
+│       └── user_export.csv
+├── category/
+│   └── dt=2026-08-10/
+│       └── categories.json
+├── budget/
+│   └── dt=2026-08-10/
+│       └── budgets.csv
+├── transaction/
+│   ├── csv/dt=2026-08-10/
+│   │   └── batch1.csv
+│   ├── json/dt=2026-08-10/
+│   │   └── batch2.json
+│   └── txt/dt=2026-08-10/
+│       └── batch3.txt
+└── insight/
+    └── dt=2026-08-10/
+        └── insights.json
