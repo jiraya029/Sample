@@ -1,0 +1,102 @@
+package firsttask;
+
+import java.time.Duration;
+ 
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.edge.*;
+
+import org.openqa.selenium.support.ui.ExpectedCondition;
+
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import  org.openqa.selenium.support.ui.WebDriverWait;
+ 
+public class OpenWikipedia {
+ 
+	public static void main(String[] args) 
+
+	{
+
+		WebDriver dr= new EdgeDriver();
+
+		dr.get("https://www.wikipedia.org/");
+
+		dr.manage().window().maximize();
+
+		WebDriverWait wait = new WebDriverWait(dr, Duration.ofSeconds(30));
+
+		wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("searchInput"))).sendKeys("Java");
+
+		wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[type='submit']"))).click();
+
+		System.out.println(dr.getTitle());
+
+		dr.navigate().back();
+
+		dr.navigate().forward();
+
+		dr.navigate().refresh();
+
+		dr.navigate().to("https://www.google.com/");
+
+		System.out.println(dr.getClass());
+
+		System.out.println(dr.getCurrentUrl());
+
+		System.out.println(dr.getPageSource());
+
+		String text = dr.findElement(By.id("searchInput")).getText();
+
+		System.out.println(text);
+
+		String attribute = dr.findElement(By.id("searchInput")).getAttribute("values");
+
+		System.out.println(attribute);
+
+
+
+ 
+	}
+ 
+}
+
+ 
+package practice;
+
+import org.openqa.selenium.By;
+
+import org.openqa.selenium.WebDriver;
+
+import org.openqa.selenium.WebElement;
+
+import org.openqa.selenium.edge.*;
+
+import org.openqa.selenium.support.ui.Select;
+
+public class DropDown {
+ 
+	public static void main(String[] args) {
+
+		WebDriver dr = new EdgeDriver();
+
+		dr.get("https://rahulshettyacademy.com/AutomationPractice/");
+
+		dr.manage().window().maximize();
+
+		WebElement dropdown =  dr.findElement(By.id("dropdown-class-example"));
+
+		Select sel = new Select(dropdown) ;
+
+		sel.selectByValue("option2");
+
+
+
+
+	}
+ 
+}
+
+ 
