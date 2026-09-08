@@ -515,3 +515,5 @@ Songa Rishitha -S3 Managing and S3 data uploading
 
 ssh -i "SRE-LABS.pem" ubuntu@ec2-3-93-67-102.compute-1.amazonaws.com
 ssh -i "SRE-LABS.pem" ubuntu@ec2-3-80-204-63.compute-1.amazonaws.com
+
+http://3.80.204.63:30229/d/sre-lab-full/sre-lab-e28094-full-observability?from=now-5m&to=now&timezone=browser&refresh=5s
