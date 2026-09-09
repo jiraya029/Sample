@@ -525,3 +525,9 @@ Incident Reliability Engineering, Data Reliability Engineering, Observability - 
 Observability - Dynatrace
 
 srelabs@darwinfrancis1223gmail.onmicrosoft.com
+
+kubectl get pods -n monitoring | grep ansible-webhook
+kubectl exec -n monitoring <pod-name> -- cat /ansible/playbooks/remediate.yml > remediate-playbook-live.txt
+diff remediate-playbook-live.txt remediate-playbook.txt
+
+
