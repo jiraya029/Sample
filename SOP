@@ -530,4 +530,7 @@ kubectl get pods -n monitoring | grep ansible-webhook
 kubectl exec -n monitoring <pod-name> -- cat /ansible/playbooks/remediate.yml > remediate-playbook-live.txt
 diff remediate-playbook-live.txt remediate-playbook.txt
 
-
+network issue 
+database issue 
+app down
+cyber breach (cyber attack)
