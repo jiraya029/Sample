@@ -537,3 +537,13 @@ cyber breach (cyber attack)
 
 
 https://service-desk-trainer.vercel.app/
+https://service-desk-trainer-git-main-jiraya.vercel.app/
+# Admin bootstrap — creates an admin account on first boot if it doesn't exist
+ADMIN_NAME=Administrator
+ADMIN_EMAIL=admin@servicedesk.local
+ADMIN_PASSWORD=Admin@1234
+ADMIN_SAP_ID=ADMIN-0001
+
+
+
+https://service-desk-trainer-git-main-jiraya.vercel.app/
