@@ -550,3 +550,6 @@ https://service-desk-trainer-git-main-jiraya.vercel.app/
 https://service-desk-trainer.vercel.app/
 SMTP_URL=smtps://you@gmail.com:abcdabcdabcdabcd@smtp.gmail.com:465
 MAIL_FROM="Service Desk Trainer <you@gmail.com>"
+
+
+navigator.mediaDevices.getUserMedia({ audio: true }).then(() => console.log('OK')).catch(e => console.log(e.name, e.message))
