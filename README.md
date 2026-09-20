@@ -13,3 +13,6 @@ VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
 
 IMAGE=$(./infra/build-voice-codebuild.sh sdt-prod us-east-1 | tail -1)
 VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
+
+
+aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 --max-items 10
