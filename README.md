@@ -161,3 +161,14 @@ $ aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-hel
         }
     ]
 }
+
+
+
+
+
+
+
+
+
+aws cloudformation delete-stack --stack-name sdt-prod-voice-build-helper --region us-east-1
+aws cloudformation wait stack-delete-complete --stack-name sdt-prod-voice-build-helper --region us-east-1
