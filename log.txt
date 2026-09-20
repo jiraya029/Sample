@@ -1,0 +1,234 @@
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ export AWS_PAGER=""
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1
+{
+    "StackEvents": [
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "7acf8820-b523-11f1-bfec-1227cbdaac6f",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "sdt-prod-voice-build-helper",
+            "PhysicalResourceId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2026-09-20T18:45:41.392000+00:00",
+            "ResourceStatus": "ROLLBACK_COMPLETE",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "SourceBucket-DELETE_COMPLETE-2026-09-20T18:45:41.032Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "SourceBucket",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx",
+            "ResourceType": "AWS::S3::Bucket",
+            "Timestamp": "2026-09-20T18:45:41.032000+00:00",
+            "ResourceStatus": "DELETE_COMPLETE",
+            "ResourceProperties": "{\"PublicAccessBlockConfiguration\":{\"RestrictPublicBuckets\":\"true\",\"BlockPublicPolicy\":\"true\",\"BlockPublicAcls\":\"true\",\"IgnorePublicAcls\":\"true\"},\"LifecycleConfiguration\":{\"Rules\":[{\"Status\":\"Enabled\",\"ExpirationInDays\":\"7\",\"Id\":\"expire-source-zips\"}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "SourceBucket-DELETE_IN_PROGRESS-2026-09-20T18:45:39.692Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "SourceBucket",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx",
+            "ResourceType": "AWS::S3::Bucket",
+            "Timestamp": "2026-09-20T18:45:39.692000+00:00",
+            "ResourceStatus": "DELETE_IN_PROGRESS",
+            "ResourceProperties": "{\"PublicAccessBlockConfiguration\":{\"RestrictPublicBuckets\":\"true\",\"BlockPublicPolicy\":\"true\",\"BlockPublicAcls\":\"true\",\"IgnorePublicAcls\":\"true\"},\"LifecycleConfiguration\":{\"Rules\":[{\"Status\":\"Enabled\",\"ExpirationInDays\":\"7\",\"Id\":\"expire-source-zips\"}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "CodeBuildRole-DELETE_COMPLETE-2026-09-20T18:45:39.339Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "CodeBuildRole",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2026-09-20T18:45:39.339000+00:00",
+            "ResourceStatus": "DELETE_COMPLETE",
+            "ResourceProperties": "{\"Policies\":[{\"PolicyName\":\"build-and-push\",\"PolicyDocument\":{\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Resource\":\"arn:aws:logs:us-east-1:786944814826:log-group:/aws/codebuild/sdt-prod-voice-build*\",\"Effect\":\"Allow\"},{\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/*\",\"Effect\":\"Allow\"},{\"Action\":\"ecr:GetAuthorizationToken\",\"Resource\":\"*\",\"Effect\":\"Allow\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:InitiateLayerUpload\",\"ecr:UploadLayerPart\",\"ecr:CompleteLayerUpload\",\"ecr:PutImage\",\"ecr:BatchGetImage\",\"ecr:GetDownloadUrlForLayer\"],\"Resource\":\"arn:aws:ecr:us-east-1:786944814826:repository/sdt-prod-voice\",\"Effect\":\"Allow\"}]}}],\"AssumeRolePolicyDocument\":{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "CodeBuildRole-DELETE_IN_PROGRESS-2026-09-20T18:45:28.034Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "CodeBuildRole",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2026-09-20T18:45:28.034000+00:00",
+            "ResourceStatus": "DELETE_IN_PROGRESS",
+            "ResourceProperties": "{\"Policies\":[{\"PolicyName\":\"build-and-push\",\"PolicyDocument\":{\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Resource\":\"arn:aws:logs:us-east-1:786944814826:log-group:/aws/codebuild/sdt-prod-voice-build*\",\"Effect\":\"Allow\"},{\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/*\",\"Effect\":\"Allow\"},{\"Action\":\"ecr:GetAuthorizationToken\",\"Resource\":\"*\",\"Effect\":\"Allow\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:InitiateLayerUpload\",\"ecr:UploadLayerPart\",\"ecr:CompleteLayerUpload\",\"ecr:PutImage\",\"ecr:BatchGetImage\",\"ecr:GetDownloadUrlForLayer\"],\"Resource\":\"arn:aws:ecr:us-east-1:786944814826:repository/sdt-prod-voice\",\"Effect\":\"Allow\"}]}}],\"AssumeRolePolicyDocument\":{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "BuildProject-DELETE_COMPLETE-2026-09-20T18:45:27.702Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "BuildProject",
+            "PhysicalResourceId": "",
+            "ResourceType": "AWS::CodeBuild::Project",
+            "Timestamp": "2026-09-20T18:45:27.702000+00:00",
+            "ResourceStatus": "DELETE_COMPLETE",
+            "ResourceProperties": "{\"Artifacts\":{\"Type\":\"NO_ARTIFACTS\"},\"ServiceRole\":\"arn:aws:iam::786944814826:role/sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1\",\"Environment\":{\"Type\":\"LINUX_CONTAINER\",\"PrivilegedMode\":\"true\",\"EnvironmentVariables\":[{\"Value\":\"786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice\",\"Name\":\"ECR_REPO_URI\"}],\"Image\":\"aws/codebuild/standard:7.0\",\"ComputeType\":\"BUILD_GENERAL1_SMALL\"},\"Source\":{\"Type\":\"S3\",\"BuildSpec\":\"infra/buildspec-voice.yml\",\"Location\":\"sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/source.zip\"},\"Name\":\"sdt-prod-voice-build\",\"TimeoutInMinutes\":\"20\"}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "7198fb10-b523-11f1-9b91-0e335c046cd7",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "97a2f6ed-eb07-4021-9044-a59dddd633de",
+            "LogicalResourceId": "sdt-prod-voice-build-helper",
+            "PhysicalResourceId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2026-09-20T18:45:25.921000+00:00",
+            "ResourceStatus": "ROLLBACK_IN_PROGRESS",
+            "ResourceStatusReason": "The following resource(s) failed to create: [BuildProject]. Rollback requested by user.",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "BuildProject-CREATE_FAILED-2026-09-20T18:45:25.605Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "BuildProject",
+            "PhysicalResourceId": "",
+            "ResourceType": "AWS::CodeBuild::Project",
+            "Timestamp": "2026-09-20T18:45:25.605000+00:00",
+            "ResourceStatus": "CREATE_FAILED",
+            "ResourceStatusReason": "Resource handler returned message: \"User: arn:aws:iam::786944814826:user/sdt-deployer is not authorized to perform: codebuild:CreateProject on resource: arn:aws:codebuild:us-east-1:786944814826:project/sdt-prod-voice-build because no identity-based policy allows the codebuild:CreateProject action (Service: AWSCodeBuild; Status Code: 400; Error Code: AccessDeniedException; Request ID: 9fbbee03-9044-467f-bf79-b1a2ea72031f; Proxy: null)\" (RequestToken: 2b1ac04a-836f-40a5-bd20-73386c2f30b8)",
+            "ResourceProperties": "{\"Artifacts\":{\"Type\":\"NO_ARTIFACTS\"},\"ServiceRole\":\"arn:aws:iam::786944814826:role/sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1\",\"Environment\":{\"Type\":\"LINUX_CONTAINER\",\"PrivilegedMode\":\"true\",\"EnvironmentVariables\":[{\"Value\":\"786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice\",\"Name\":\"ECR_REPO_URI\"}],\"Image\":\"aws/codebuild/standard:7.0\",\"ComputeType\":\"BUILD_GENERAL1_SMALL\"},\"Source\":{\"Type\":\"S3\",\"BuildSpec\":\"infra/buildspec-voice.yml\",\"Location\":\"sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/source.zip\"},\"Name\":\"sdt-prod-voice-build\",\"TimeoutInMinutes\":\"20\"}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "BuildProject-CREATE_IN_PROGRESS-2026-09-20T18:45:24.226Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "BuildProject",
+            "PhysicalResourceId": "",
+            "ResourceType": "AWS::CodeBuild::Project",
+            "Timestamp": "2026-09-20T18:45:24.226000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS",
+            "ResourceProperties": "{\"Artifacts\":{\"Type\":\"NO_ARTIFACTS\"},\"ServiceRole\":\"arn:aws:iam::786944814826:role/sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1\",\"Environment\":{\"Type\":\"LINUX_CONTAINER\",\"PrivilegedMode\":\"true\",\"EnvironmentVariables\":[{\"Value\":\"786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice\",\"Name\":\"ECR_REPO_URI\"}],\"Image\":\"aws/codebuild/standard:7.0\",\"ComputeType\":\"BUILD_GENERAL1_SMALL\"},\"Source\":{\"Type\":\"S3\",\"BuildSpec\":\"infra/buildspec-voice.yml\",\"Location\":\"sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/source.zip\"},\"Name\":\"sdt-prod-voice-build\",\"TimeoutInMinutes\":\"20\"}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "CodeBuildRole-CREATE_COMPLETE-2026-09-20T18:45:23.620Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "CodeBuildRole",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2026-09-20T18:45:23.620000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE",
+            "ResourceProperties": "{\"Policies\":[{\"PolicyName\":\"build-and-push\",\"PolicyDocument\":{\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Resource\":\"arn:aws:logs:us-east-1:786944814826:log-group:/aws/codebuild/sdt-prod-voice-build*\",\"Effect\":\"Allow\"},{\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/*\",\"Effect\":\"Allow\"},{\"Action\":\"ecr:GetAuthorizationToken\",\"Resource\":\"*\",\"Effect\":\"Allow\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:InitiateLayerUpload\",\"ecr:UploadLayerPart\",\"ecr:CompleteLayerUpload\",\"ecr:PutImage\",\"ecr:BatchGetImage\",\"ecr:GetDownloadUrlForLayer\"],\"Resource\":\"arn:aws:ecr:us-east-1:786944814826:repository/sdt-prod-voice\",\"Effect\":\"Allow\"}]}}],\"AssumeRolePolicyDocument\":{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "CodeBuildRole-CREATE_IN_PROGRESS-2026-09-20T18:45:07.306Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "CodeBuildRole",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-CodeBuildRole-f1qAk4XR3Kf1",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2026-09-20T18:45:07.306000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS",
+            "ResourceStatusReason": "Resource creation Initiated",
+            "ResourceProperties": "{\"Policies\":[{\"PolicyName\":\"build-and-push\",\"PolicyDocument\":{\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Resource\":\"arn:aws:logs:us-east-1:786944814826:log-group:/aws/codebuild/sdt-prod-voice-build*\",\"Effect\":\"Allow\"},{\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/*\",\"Effect\":\"Allow\"},{\"Action\":\"ecr:GetAuthorizationToken\",\"Resource\":\"*\",\"Effect\":\"Allow\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:InitiateLayerUpload\",\"ecr:UploadLayerPart\",\"ecr:CompleteLayerUpload\",\"ecr:PutImage\",\"ecr:BatchGetImage\",\"ecr:GetDownloadUrlForLayer\"],\"Resource\":\"arn:aws:ecr:us-east-1:786944814826:repository/sdt-prod-voice\",\"Effect\":\"Allow\"}]}}],\"AssumeRolePolicyDocument\":{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "CodeBuildRole-CREATE_IN_PROGRESS-2026-09-20T18:45:06.466Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "CodeBuildRole",
+            "PhysicalResourceId": "",
+            "ResourceType": "AWS::IAM::Role",
+            "Timestamp": "2026-09-20T18:45:06.466000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS",
+            "ResourceProperties": "{\"Policies\":[{\"PolicyName\":\"build-and-push\",\"PolicyDocument\":{\"Statement\":[{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Resource\":\"arn:aws:logs:us-east-1:786944814826:log-group:/aws/codebuild/sdt-prod-voice-build*\",\"Effect\":\"Allow\"},{\"Action\":[\"s3:GetObject\"],\"Resource\":\"arn:aws:s3:::sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx/*\",\"Effect\":\"Allow\"},{\"Action\":\"ecr:GetAuthorizationToken\",\"Resource\":\"*\",\"Effect\":\"Allow\"},{\"Action\":[\"ecr:BatchCheckLayerAvailability\",\"ecr:InitiateLayerUpload\",\"ecr:UploadLayerPart\",\"ecr:CompleteLayerUpload\",\"ecr:PutImage\",\"ecr:BatchGetImage\",\"ecr:GetDownloadUrlForLayer\"],\"Resource\":\"arn:aws:ecr:us-east-1:786944814826:repository/sdt-prod-voice\",\"Effect\":\"Allow\"}]}}],\"AssumeRolePolicyDocument\":{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"codebuild.amazonaws.com\"}}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "SourceBucket-CREATE_COMPLETE-2026-09-20T18:45:05.345Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "SourceBucket",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx",
+            "ResourceType": "AWS::S3::Bucket",
+            "Timestamp": "2026-09-20T18:45:05.345000+00:00",
+            "ResourceStatus": "CREATE_COMPLETE",
+            "ResourceProperties": "{\"PublicAccessBlockConfiguration\":{\"RestrictPublicBuckets\":\"true\",\"BlockPublicPolicy\":\"true\",\"BlockPublicAcls\":\"true\",\"IgnorePublicAcls\":\"true\"},\"LifecycleConfiguration\":{\"Rules\":[{\"Status\":\"Enabled\",\"ExpirationInDays\":\"7\",\"Id\":\"expire-source-zips\"}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "SourceBucket-CREATE_IN_PROGRESS-2026-09-20T18:44:52.219Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "SourceBucket",
+            "PhysicalResourceId": "sdt-prod-voice-build-helper-sourcebucket-m7a1rpvu6wcx",
+            "ResourceType": "AWS::S3::Bucket",
+            "Timestamp": "2026-09-20T18:44:52.219000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS",
+            "ResourceStatusReason": "Resource creation Initiated",
+            "ResourceProperties": "{\"PublicAccessBlockConfiguration\":{\"RestrictPublicBuckets\":\"true\",\"BlockPublicPolicy\":\"true\",\"BlockPublicAcls\":\"true\",\"IgnorePublicAcls\":\"true\"},\"LifecycleConfiguration\":{\"Rules\":[{\"Status\":\"Enabled\",\"ExpirationInDays\":\"7\",\"Id\":\"expire-source-zips\"}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "SourceBucket-CREATE_IN_PROGRESS-2026-09-20T18:44:51.251Z",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "SourceBucket",
+            "PhysicalResourceId": "",
+            "ResourceType": "AWS::S3::Bucket",
+            "Timestamp": "2026-09-20T18:44:51.251000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS",
+            "ResourceProperties": "{\"PublicAccessBlockConfiguration\":{\"RestrictPublicBuckets\":\"true\",\"BlockPublicPolicy\":\"true\",\"BlockPublicAcls\":\"true\",\"IgnorePublicAcls\":\"true\"},\"LifecycleConfiguration\":{\"Rules\":[{\"Status\":\"Enabled\",\"ExpirationInDays\":\"7\",\"Id\":\"expire-source-zips\"}]}}",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "5b9f10b0-b523-11f1-9d2f-0e0710848595",
+            "StackName": "sdt-prod-voice-build-helper",
+            "OperationId": "69ff7364-0a71-407b-9fc9-aa87f757c2f7",
+            "LogicalResourceId": "sdt-prod-voice-build-helper",
+            "PhysicalResourceId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2026-09-20T18:44:49.060000+00:00",
+            "ResourceStatus": "CREATE_IN_PROGRESS",
+            "ResourceStatusReason": "User Initiated",
+            "ClientRequestToken": "418a70be-2af9-4ca0-bf46-4b8b84ed3620"
+        },
+        {
+            "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "EventId": "58093fc0-b523-11f1-a236-12085826b3fb",
+            "StackName": "sdt-prod-voice-build-helper",
+            "LogicalResourceId": "sdt-prod-voice-build-helper",
+            "PhysicalResourceId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod-voice-build-helper/5809b4f0-b523-11f1-a236-12085826b3fb",
+            "ResourceType": "AWS::CloudFormation::Stack",
+            "Timestamp": "2026-09-20T18:44:43.129000+00:00",
+            "ResourceStatus": "REVIEW_IN_PROGRESS",
+            "ResourceStatusReason": "User Initiated"
+        }
+    ]
+}
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$
