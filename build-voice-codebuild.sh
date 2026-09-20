@@ -68,12 +68,29 @@ else
   done
   WIN_STAGE=$(cygpath -w "$STAGE")
   WIN_ZIP=$(cygpath -w "$ZIP")
-  # Compress-Archive with a wildcard -Path can silently drop nested files on
-  # some PowerShell/Windows combinations (observed: subdirectory contents like
-  # infra/buildspec-voice.yml missing from the resulting zip). ZipFile's own
-  # .NET API zips a whole directory tree with no wildcard-expansion ambiguity,
-  # so use that instead.
-  powershell.exe -NoProfile -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('${WIN_STAGE}', '${WIN_ZIP}')"
+  # CreateFromDirectory (and Compress-Archive) can name zip entries with a
+  # backslash on Windows instead of the forward slash the ZIP format actually
+  # requires (observed directly: an entry literally named "infra\buildspec-
+  # voice.yml"). Windows treats that as a path separator so it looked fine
+  # locally; CodeBuild's Linux container does not, and extracted it as one
+  # oddly-named flat file instead of infra/buildspec-voice.yml. Build the
+  # archive one entry at a time instead, forcing '/' explicitly, so there is
+  # no separator ambiguity regardless of .NET/PowerShell version quirks.
+  PS1=$(mktemp --suffix=.ps1)
+  cat > "$PS1" << 'PSEOF'
+param([string]$StageDir, [string]$ZipPath)
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+if (Test-Path $ZipPath) { Remove-Item $ZipPath -Force }
+$zip = [System.IO.Compression.ZipFile]::Open($ZipPath, [System.IO.Compression.ZipArchiveMode]::Create)
+Get-ChildItem -Path $StageDir -Recurse -File | ForEach-Object {
+  $relative = $_.FullName.Substring($StageDir.Length).TrimStart('\', '/').Replace('\', '/')
+  [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $_.FullName, $relative) | Out-Null
+}
+$zip.Dispose()
+PSEOF
+  WIN_PS1=$(cygpath -w "$PS1")
+  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$WIN_PS1" -StageDir "$WIN_STAGE" -ZipPath "$WIN_ZIP"
+  rm -f "$PS1"
   rm -rf "$STAGE"
 
   echo "Verifying the archive actually contains infra/buildspec-voice.yml..." >&2
