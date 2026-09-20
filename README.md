@@ -178,3 +178,7 @@ aws cloudformation delete-stack --stack-name sdt-prod-voice-build-helper --regio
 aws cloudformation wait stack-delete-complete --stack-name sdt-prod-voice-build-helper --region us-east-1
 IMAGE=$(./infra/build-voice-codebuild.sh sdt-prod us-east-1 | tail -1)
 VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
+
+
+
+aws logs tail /aws/codebuild/sdt-prod-voice-build --log-stream-names e45aff72-0242-49e2-8a60-e242fa120935 --region us-east-1
