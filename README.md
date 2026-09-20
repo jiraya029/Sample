@@ -10,3 +10,6 @@ VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
 
 
 ./infra/build-voice-codebuild.sh sdt-prod us-east-1
+
+IMAGE=$(./infra/build-voice-codebuild.sh sdt-prod us-east-1 | tail -1)
+VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
