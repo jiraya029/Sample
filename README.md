@@ -24,4 +24,15 @@ export AWS_PAGER=""
 aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 \
   --query "StackEvents[?ResourceStatus=='CREATE_FAILED']" --output json
 
+
+
+
+
+export AWS_PAGER=""
+aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 \
+  --query "StackEvents[?ResourceStatus=='CREATE_FAILED']" --output json
+  
+  
+  
+  
   aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 --output json | grep -A2 "CREATE_FAILED\|ResourceStatusReason"
