@@ -182,3 +182,11 @@ VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
 
 
 aws logs tail /aws/codebuild/sdt-prod-voice-build --log-stream-names e45aff72-0242-49e2-8a60-e242fa120935 --region us-east-1
+sam deploy -t infra/template.yaml --stack-name sdt-prod --region us-east-1 --resolve-s3 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --debug \
+  --parameter-overrides JwtSecret="$JWT_SECRET" VoiceImageUri="$VOICE_IMAGE" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" 2>&1 | tail -60
+
+
+
+
+  sam deploy -t infra/template.yaml --stack-name sdt-prod --region us-east-1 --resolve-s3 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --debug \
+  --parameter-overrides JwtSecret="$JWT_SECRET" VoiceImageUri="$VOICE_IMAGE" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" 2>&1 | tail -60
