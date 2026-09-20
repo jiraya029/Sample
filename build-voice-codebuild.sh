@@ -68,8 +68,23 @@ else
   done
   WIN_STAGE=$(cygpath -w "$STAGE")
   WIN_ZIP=$(cygpath -w "$ZIP")
-  powershell.exe -NoProfile -Command "Compress-Archive -Path '${WIN_STAGE}\\*' -DestinationPath '${WIN_ZIP}' -Force"
+  # Compress-Archive with a wildcard -Path can silently drop nested files on
+  # some PowerShell/Windows combinations (observed: subdirectory contents like
+  # infra/buildspec-voice.yml missing from the resulting zip). ZipFile's own
+  # .NET API zips a whole directory tree with no wildcard-expansion ambiguity,
+  # so use that instead.
+  powershell.exe -NoProfile -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::CreateFromDirectory('${WIN_STAGE}', '${WIN_ZIP}')"
   rm -rf "$STAGE"
+
+  echo "Verifying the archive actually contains infra/buildspec-voice.yml..." >&2
+  FOUND=$(powershell.exe -NoProfile -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; \$z = [System.IO.Compression.ZipFile]::OpenRead('${WIN_ZIP}'); (\$z.Entries | Where-Object { \$_.FullName -eq 'infra/buildspec-voice.yml' }).Count; \$z.Dispose()" | tr -d '\r')
+  if [[ "$FOUND" != "1" ]]; then
+    echo "The generated zip does not contain infra/buildspec-voice.yml (found: ${FOUND:-0} matches)." >&2
+    echo "Listing what it does contain, for debugging:" >&2
+    powershell.exe -NoProfile -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; \$z = [System.IO.Compression.ZipFile]::OpenRead('${WIN_ZIP}'); \$z.Entries | ForEach-Object { \$_.FullName }; \$z.Dispose()" >&2
+    exit 1
+  fi
+  echo "  confirmed present." >&2
 fi
 
 [ -s "$ZIP" ] || { echo "Failed to create the source zip (both zip and Compress-Archive unavailable/failed)." >&2; exit 1; }
