@@ -16,3 +16,7 @@ VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
 
 
 aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 --max-items 10
+
+
+aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 \
+  --query "StackEvents[?ResourceStatus=='CREATE_FAILED']" --output json
