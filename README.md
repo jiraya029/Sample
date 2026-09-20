@@ -172,3 +172,9 @@ $ aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-hel
 
 aws cloudformation delete-stack --stack-name sdt-prod-voice-build-helper --region us-east-1
 aws cloudformation wait stack-delete-complete --stack-name sdt-prod-voice-build-helper --region us-east-1
+
+
+aws cloudformation delete-stack --stack-name sdt-prod-voice-build-helper --region us-east-1
+aws cloudformation wait stack-delete-complete --stack-name sdt-prod-voice-build-helper --region us-east-1
+IMAGE=$(./infra/build-voice-codebuild.sh sdt-prod us-east-1 | tail -1)
+VOICE_IMAGE="$IMAGE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
