@@ -1,9 +1,19 @@
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ grep -n "FRONTEND_ORIGIN|const allowed|reject(socket, 403)" lib/voiceGateway.js
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ grep -n "return reject(socket, 403)" lib/voiceGateway.js
-58:    if (origin) { try { if (new URL(origin).host !== host && !allowed.includes(origin)) return reject(socket, 403); } catch (e) { return reject(socket, 403); } }
+$   SVC_ID=$(aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.ServiceId" --output text) && MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 5m
+2026-09-21T10:50:39.568000+00:00 instance/b3bd27bed30b4b59ba3e8a69fa3bf68d Voice service on :8080 (model amazon.nova-2-sonic-v1:0)
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$   SVC_ID=$(aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.ServiceId" --output text) && MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 5m
+2026-09-21T10:50:39.568000+00:00 instance/b3bd27bed30b4b59ba3e8a69fa3bf68d Voice service on :8080 (model amazon.nova-2-sonic-v1:0)
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$   SVC_ID=$(aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.ServiceId" --output text) && MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 5m
+2026-09-21T10:50:39.568000+00:00 instance/b3bd27bed30b4b59ba3e8a69fa3bf68d Voice service on :8080 (model amazon.nova-2-sonic-v1:0)
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$   SVC_ID=$(aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.ServiceId" --output text) && MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 5m
+2026-09-21T10:50:39.568000+00:00 instance/b3bd27bed30b4b59ba3e8a69fa3bf68d Voice service on :8080 (model amazon.nova-2-sonic-v1:0)
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
 $
