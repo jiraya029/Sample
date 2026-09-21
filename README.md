@@ -264,3 +264,39 @@ export SMTP_URL="smtps://darwinfrancis19@gmail.com:nfplactpldotvfhp@smtp.gmail.c
 
 
 /c/PROGRA~1/Amazon/AWSSAMCLI/bin/sam.cmd deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD"`
+
+
+export SKIP_OTP_EMAILS="admin@servicedesk.local"
+/c/PROGRA~1/Amazon/AWSSAMCLI/bin/sam.cmd deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+# 1. Get the data bucket
+BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DataBucketName'].OutputValue" --output text)
+echo "$BUCKET"
+
+# 2. Find the user's internal ID
+EMAIL_HASH=$(node -e "console.log(require('crypto').createHash('sha256').update('admin@servicedesk.local').digest('hex'))")
+aws s3 cp "s3://$BUCKET/index/users-by-email/$EMAIL_HASH.json" - --region us-east-1
+
+# 3. Fetch the current record
+USER_ID=1   # <-- replace with the real number from step 2
+aws s3 cp "s3://$BUCKET/users/by-id/$USER_ID.json" /tmp/user.json --region us-east-1
+
+# 4. Generate a bcrypt hash for the new password
+npm install bcryptjs --no-save --no-audit --no-fund
+HASH=$(node -e "console.log(require('bcryptjs').hashSync(process.argv[1],10))" "YourNewPassword1")
+echo "$HASH"
+
+# 5. Update the record: new password hash, log out any existing sessions
+node -e "
+const fs=require('fs');
+const u=JSON.parse(fs.readFileSync('/tmp/user.json','utf8'));
+u.password_hash='$HASH';
+u.session_epoch=(u.session_epoch||1)+1;
+u.failed_logins=0; u.locked_until=null;
+fs.writeFileSync('/tmp/user.json', JSON.stringify(u));
+console.log('updated');
+"
+
+# 6. Write it back
+aws s3 cp /tmp/user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region us-east-1
