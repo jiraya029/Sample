@@ -580,3 +580,11 @@ grep -c "FRONTEND_ORIGIN" lib/voiceGateway.js
 
 
 SVC_ID=$(aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.ServiceId" --output text) && MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 10m
+
+\
+\
+
+grep -n "FRONTEND_ORIGIN\|const allowed\|reject(socket, 403)" lib/voiceGateway.js
+
+
+grep -n "return reject(socket, 403)" lib/voiceGateway.js
