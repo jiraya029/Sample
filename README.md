@@ -300,3 +300,51 @@ console.log('updated');
 
 # 6. Write it back
 aws s3 cp /tmp/user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region us-east-1
+
+cat > fixpass.sh << 'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+STACK=sdt-prod
+REGION=us-east-1
+EMAIL=admin@servicedesk.local
+NEWPASS="ChangeMe123"
+
+npm install bcryptjs --no-save --no-audit --no-fund >/dev/null
+
+BUCKET=$(aws cloudformation describe-stacks --stack-name "$STACK" --region "$REGION" --query "Stacks[0].Outputs[?OutputKey=='DataBucketName'].OutputValue" --output text)
+echo "Data bucket: $BUCKET"
+
+EMAIL_HASH=$(node -e "console.log(require('crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" "$EMAIL")
+aws s3 cp "s3://$BUCKET/index/users-by-email/$EMAIL_HASH.json" /tmp/idx.json --region "$REGION"
+USER_ID=$(node -e "console.log(JSON.parse(require('fs').readFileSync('/tmp/idx.json','utf8')).userId)")
+echo "User id: $USER_ID"
+
+aws s3 cp "s3://$BUCKET/users/by-id/$USER_ID.json" /tmp/user.json --region "$REGION"
+
+node -e "
+const bcrypt = require('bcryptjs');
+const fs = require('fs');
+const u = JSON.parse(fs.readFileSync('/tmp/user.json','utf8'));
+u.password_hash = bcrypt.hashSync(process.argv[1], 10);
+u.session_epoch = (u.session_epoch || 1) + 1;
+u.failed_logins = 0;
+u.locked_until = null;
+fs.writeFileSync('/tmp/user.json', JSON.stringify(u));
+console.log('patched user', u.id, u.email);
+" "$NEWPASS"
+
+aws s3 cp /tmp/user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region "$REGION"
+echo "Done. New password for $EMAIL is: $NEWPASS"
+EOF
+
+
+
+bash fixpass.sh
+
+
+echo "TEXT_MODEL_ID=$TEXT_MODEL_ID"
+echo "VOICE_MODEL_ID=$VOICE_MODEL_ID"
+
+
+export TEXT_MODEL_ID="anthropic.claude-sonnet-4-6-XXXXXXXX-v1:0"   # your real 4.6 ID from the console
+export VOICE_MODEL_ID="amazon.nova-2-sonic-v1:0"                    # your real Nova 2 ID from the console
