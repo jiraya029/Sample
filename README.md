@@ -374,3 +374,14 @@ echo 'aws s3 cp "s3://$BUCKET/users/by-id/$USER_ID.json" /tmp/user.json --region
 echo 'node -e "const b=require(\x27bcryptjs\x27);const fs=require(\x27fs\x27);const u=JSON.parse(fs.readFileSync(\x27/tmp/user.json\x27,\x27utf8\x27));u.password_hash=b.hashSync(process.argv[1],10);u.session_epoch=(u.session_epoch||1)+1;u.failed_logins=0;u.locked_until=null;fs.writeFileSync(\x27/tmp/user.json\x27,JSON.stringify(u));console.log(\x27patched\x27,u.id,u.email);" "$NEWPASS"' >> fixpass.sh
 echo 'aws s3 cp /tmp/user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region "$REGION"' >> fixpass.sh
 echo 'echo "Done. New password for $EMAIL is: $NEWPASS"' >> fixpass.sh
+
+
+curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
+
+
+
+export SKIP_OTP_EMAILS="admin@servicedesk.local"
+/c/PROGRA~1/Amazon/AWSSAMCLI/bin/sam.cmd deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+echo "JWT=$JWT_SECRET TEXT=$TEXT_MODEL_ID VOICE=$VOICE_MODEL_ID SMTP=$SMTP_URL MAIL=$MAIL_FROM ADMIN=$ADMIN_EMAIL PASS=$ADMIN_PASSWORD SKIP=$SKIP_OTP_EMAILS"
