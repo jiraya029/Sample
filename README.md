@@ -24,6 +24,7 @@ export AWS_PAGER=""
 aws cloudformation describe-stack-events --stack-name sdt-prod-voice-build-helper --region us-east-1 \
   --query "StackEvents[?ResourceStatus=='CREATE_FAILED']" --output json
 
+aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs" --output table
 
 
 
