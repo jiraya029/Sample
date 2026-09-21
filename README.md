@@ -439,3 +439,11 @@ curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
 
 
 https://d2n18reac1wo1o.cloudfront.net/chat
+
+
+export TEXT_MODEL_ID="us.anthropic.claude-sonnet-4-6"
+sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+FUNC=$(aws cloudformation describe-stack-resources --stack-name sdt-prod --region us-east-1 --query "StackResources[?LogicalResourceId=='ApiFunction'].PhysicalResourceId" --output text)
+MSYS_NO_PATHCONV=1 aws logs tail /aws/lambda/$FUNC --region us-east-1 --since 5m
