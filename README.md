@@ -625,3 +625,7 @@ sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifac
 
 
 BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendBucketName'].OutputValue" --output text) && DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text) && aws s3 sync public/ "s3://$BUCKET/" --region us-east-1 --delete --cache-control "public, max-age=300" && aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*"
+
+
+
+export JWT_SECRET="sdt-local-dev-secret-k8x2Qm9vPnW4rT7y" && export TEXT_MODEL_ID="us.anthropic.claude-sonnet-4-6" && export VOICE_MODEL_ID="amazon.nova-2-sonic-v1:0" && export SMTP_URL="smtps://darwinfrancis19@gmail.com:nfplactpldotvfhp@smtp.gmail.com:465" && export MAIL_FROM="darwinfrancis19@gmail.com" && export ADMIN_EMAIL="admin@servicedesk.local" && export ADMIN_PASSWORD="Admin@123" && export SKIP_OTP_EMAILS="admin@servicedesk.local" && echo "JWT=[$JWT_SECRET] SMTP=[$SMTP_URL] SKIP=[$SKIP_OTP_EMAILS]"
