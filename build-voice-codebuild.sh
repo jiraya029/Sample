@@ -53,11 +53,17 @@ if command -v zip >/dev/null 2>&1; then
   zip -qr "$ZIP" . \
     -x "node_modules/*" ".git/*" ".aws-sam/*" "test/*" "public/*" "*.zip" ".env"
 else
-  # Some Git Bash installs ship no package manager and no zip.exe (only unzip).
-  # Fall back to Windows' own PowerShell Compress-Archive - always present,
-  # nothing to install. Stage only the wanted top-level items first, since
-  # Compress-Archive has no exclude flag the way `zip -x` does.
-  echo "  (zip not found - using PowerShell Compress-Archive instead)" >&2
+  # No zip binary here, and PowerShell's zip APIs have proven unreliable on
+  # this machine across three different failure modes (Compress-Archive
+  # silently dropping nested files, ZipFile writing backslash-separated entry
+  # names, and Add-Type failing to resolve ZipArchiveMode at all - a .NET
+  # assembly-loading quirk on this PowerShell version). Node.js has worked
+  # reliably all night, so build the zip with it instead via a small,
+  # well-established pure-JS library - no PowerShell, no .NET, no separator
+  # ambiguity (adm-zip always writes forward-slash entry names).
+  echo "  (zip not found - using Node.js (adm-zip) instead)" >&2
+  npm install adm-zip --no-save --no-audit --no-fund >&2
+
   STAGE="$(mktemp -d)"
   for item in * .[!.]*; do
     case "$item" in
@@ -66,45 +72,43 @@ else
     [ -e "$item" ] || continue
     cp -r "$item" "$STAGE/"
   done
-  WIN_STAGE=$(cygpath -w "$STAGE")
-  WIN_ZIP=$(cygpath -w "$ZIP")
-  # CreateFromDirectory (and Compress-Archive) can name zip entries with a
-  # backslash on Windows instead of the forward slash the ZIP format actually
-  # requires (observed directly: an entry literally named "infra\buildspec-
-  # voice.yml"). Windows treats that as a path separator so it looked fine
-  # locally; CodeBuild's Linux container does not, and extracted it as one
-  # oddly-named flat file instead of infra/buildspec-voice.yml. Build the
-  # archive one entry at a time instead, forcing '/' explicitly, so there is
-  # no separator ambiguity regardless of .NET/PowerShell version quirks.
-  PS1=$(mktemp --suffix=.ps1)
-  cat > "$PS1" << 'PSEOF'
-param([string]$StageDir, [string]$ZipPath)
-Add-Type -AssemblyName System.IO.Compression.FileSystem
-if (Test-Path $ZipPath) { Remove-Item $ZipPath -Force }
-$zip = [System.IO.Compression.ZipFile]::Open($ZipPath, [System.IO.Compression.ZipArchiveMode]::Create)
-Get-ChildItem -Path $StageDir -Recurse -File | ForEach-Object {
-  $relative = $_.FullName.Substring($StageDir.Length).TrimStart('\', '/').Replace('\', '/')
-  [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip, $_.FullName, $relative) | Out-Null
-}
-$zip.Dispose()
-PSEOF
-  WIN_PS1=$(cygpath -w "$PS1")
-  powershell.exe -NoProfile -ExecutionPolicy Bypass -File "$WIN_PS1" -StageDir "$WIN_STAGE" -ZipPath "$WIN_ZIP"
-  rm -f "$PS1"
-  rm -rf "$STAGE"
 
-  echo "Verifying the archive actually contains infra/buildspec-voice.yml..." >&2
-  FOUND=$(powershell.exe -NoProfile -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; \$z = [System.IO.Compression.ZipFile]::OpenRead('${WIN_ZIP}'); (\$z.Entries | Where-Object { \$_.FullName -eq 'infra/buildspec-voice.yml' }).Count; \$z.Dispose()" | tr -d '\r')
-  if [[ "$FOUND" != "1" ]]; then
-    echo "The generated zip does not contain infra/buildspec-voice.yml (found: ${FOUND:-0} matches)." >&2
-    echo "Listing what it does contain, for debugging:" >&2
-    powershell.exe -NoProfile -Command "Add-Type -AssemblyName System.IO.Compression.FileSystem; \$z = [System.IO.Compression.ZipFile]::OpenRead('${WIN_ZIP}'); \$z.Entries | ForEach-Object { \$_.FullName }; \$z.Dispose()" >&2
-    exit 1
-  fi
-  echo "  confirmed present." >&2
+  ZIPJS="./_ziphelper_$$.js"
+  cat > "$ZIPJS" << 'JSEOF'
+const AdmZip = require('adm-zip');
+const [, , stageDir, zipPath] = process.argv;
+const zip = new AdmZip();
+zip.addLocalFolder(stageDir);
+zip.writeZip(zipPath);
+console.log('zip written:', zipPath, '-', zip.getEntries().length, 'entries');
+JSEOF
+  node "$ZIPJS" "$STAGE" "$ZIP"
+  rm -f "$ZIPJS"
+  rm -rf "$STAGE"
 fi
 
-[ -s "$ZIP" ] || { echo "Failed to create the source zip (both zip and Compress-Archive unavailable/failed)." >&2; exit 1; }
+echo "Verifying the archive actually contains infra/buildspec-voice.yml..." >&2
+VERIFYJS="./_verifyhelper_$$.js"
+cat > "$VERIFYJS" << 'JSEOF'
+const AdmZip = require('adm-zip');
+const [, , zipPath] = process.argv;
+const zip = new AdmZip(zipPath);
+const entries = zip.getEntries().map(e => e.entryName);
+if (!entries.includes('infra/buildspec-voice.yml')) {
+  console.error('MISSING. Archive contains ' + entries.length + ' entries:');
+  entries.forEach(e => console.error('  ' + e));
+  process.exit(1);
+}
+console.log('confirmed present (' + entries.length + ' entries total).');
+JSEOF
+if ! node "$VERIFYJS" "$ZIP"; then
+  rm -f "$VERIFYJS"
+  exit 1
+fi
+rm -f "$VERIFYJS"
+
+[ -s "$ZIP" ] || { echo "Failed to create the source zip." >&2; exit 1; }
+
 
 echo "Uploading source to s3://${BUCKET}/source.zip ..." >&2
 aws s3 cp "$ZIP" "s3://${BUCKET}/source.zip" --region "$REGION" >&2
