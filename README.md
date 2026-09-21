@@ -504,3 +504,9 @@ aws apprunner describe-service --service-arn $(aws apprunner list-services --reg
 
 
 aws apprunner list-services --region us-east-1
+
+
+echo "JWT=[$JWT_SECRET] TEXT=[$TEXT_MODEL_ID] VOICE=[$VOICE_MODEL_ID] SMTP=[$SMTP_URL] MAIL=[$MAIL_FROM] ADMIN=[$ADMIN_EMAIL] PASS=[$ADMIN_PASSWORD] SKIP=[$SKIP_OTP_EMAILS]"
+
+
+sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --disable-rollback --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" VoiceImageUri="786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice:PASTE_YOUR_EXISTING_TAG" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
