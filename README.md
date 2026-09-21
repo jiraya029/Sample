@@ -395,3 +395,10 @@ export SKIP_OTP_EMAILS="admin@servicedesk.local"
 
 
 curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
+
+
+sam build -t infra/template.yaml
+
+
+
+sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
