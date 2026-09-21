@@ -522,3 +522,12 @@ TAG=$(aws ecr describe-images --repository-name sdt-prod-voice --region us-east-
 echo "Using tag: $TAG"
 
 sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" VoiceImageUri="786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice:$TAG" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+
+
+aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "length(imageDetails)" --output text && aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "imageDetails[].imageTags[]" --output text
+
+
+
+aws cloudformation rollback-stack --stack-name sdt-prod --region us-east-1 && aws cloudformation wait stack-rollback-complete --stack-name sdt-prod --region us-east-1
