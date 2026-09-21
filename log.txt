@@ -1,12 +1,9 @@
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ aws logs describe-log-groups --region us-east-1 --query "logGroups[?contains(logGroupName, 'apprunner/sdt-prod-voice')].logGroupName" --output text
-
-aws: [ERROR]: An error occurred (AccessDeniedException) when calling the DescribeLogGroups operation: User: arn:aws:iam::786944814826:user/sdt-deployer is not authorized to perform: logs:DescribeLogGroups on resource: arn:aws:logs:us-east-1:786944814826:log-group::log-stream: because no identity-based policy allows the logs:DescribeLogGroups action
+$ ^C
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/PASTE_THE_ID_HERE/application" --region us-east-1 --since 15m
+$ ARN=$(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) echo "$ARN"
 
-aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the FilterLogEvents operation: The specified log group does not exist.
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
 $ SVC_ID=$(aws apprunner describe-service --service-arn "$ARN" --region us-east-1 --query "Service.ServiceId" --output text) echo "$SVC_ID"
@@ -16,8 +13,12 @@ Invalid length for parameter ServiceArn, value: 0, valid min length: 1
 
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ SVC_ID=$(aws apprunner describe-service --service-arn "$ARN" --region us-east-1 --query "Service.ServiceId" --output text)
+$ MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 30m
 
-aws: [ERROR]: An error occurred (ParamValidation): Parameter validation failed:
-Invalid length for parameter ServiceArn, value: 0, valid min length: 1
+aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the FilterLogEvents operation: The specified log group does not exist.
 
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ ^C
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$
