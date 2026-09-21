@@ -1,46 +1,27 @@
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ ./infra/build-voice-codebuild.sh sdt-prod us-east-1
-Making sure the ECR repository exists (idempotent)...
-Deploying the CodeBuild helper stack (idempotent - safe to re-run)...
+$ sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" VoiceImageUri="PASTE_THE_NEW_URI_FROM_STEP_3" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+        File with same data already exists at 7f0e294bbc97090fa254f160638b4b63, skipping upload
+
+        Deploying with following values
+        ===============================
+        Stack name                   : sdt-prod
+        Region                       : us-east-1
+        Confirm changeset            : False
+        Disable rollback             : False
+        Deployment s3 bucket         : sdt-prod-artifacts-786944814826
+        Capabilities                 : ["CAPABILITY_IAM"]
+        Parameter overrides          : {"JwtSecret": "*****", "TextModelId": "us.anthropic.claude-sonnet-4-6", "VoiceModelId": "amazon.nova-2-sonic-v1:0", "VoiceImageUri": "PASTE_THE_NEW_URI_FROM_STEP_3", "SmtpUrl": "*****", "MailFrom": "darwinfrancis19@gmail.com", "AdminEmail": "admin@servicedesk.local", "AdminPassword": "*****", "SkipOtpEmails": "admin@servicedesk.local"}
+        Signing Profiles             : {}
+
+Initiating deployment
+=====================
+
+
+        File with same data already exists at f09aca0a3e190c1a875e2df420bd8b04.template, skipping upload
+
 
 Waiting for changeset to be created..
 
-No changes to deploy. Stack sdt-prod-voice-build-helper is up to date
-Zipping source (excluding node_modules, .git, test fixtures)...
-  (zip not found - using Node.js (adm-zip) instead)
-
-added 1 package in 2s
-zip written: C:/Users/ADMINI~1/AppData/Local/Temp/2/sdt-voice-source-20260921152007.zip - 33 entries
-Verifying the archive actually contains infra/buildspec-voice.yml...
-confirmed present (33 entries total).
-Uploading source to s3://sdt-prod-voice-build-helper-sourcebucket-xq92gjdlvri0/source.zip ...
-upload: ..\..\..\ADMINI~1\AppData\Local\Temp\2\sdt-voice-source-20260921152007.zip to s3://sdt-prod-voice-build-helper-sourcebucket-xq92gjdlvri0/source.zip
-Starting CodeBuild (sdt-prod-voice-build), tag=20260921152007 ...
-Build started: sdt-prod-voice-build:292fad15-0787-4901-86cb-11b2813f480c - polling (usually 2-4 minutes)...
-  status: IN_PROGRESS
-  status: IN_PROGRESS
-  status: IN_PROGRESS
-  status: IN_PROGRESS
-  status: SUCCEEDED
-Build succeeded.
-786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice:20260921152007
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "length(imageDetails)" --output text
-1
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ ^C
-
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.SourceConfiguration.ImageRepository.ImageConfiguration.RuntimeEnvironmentVariables"
-{
-    "BEDROCK_TEXT_MODEL": "us.anthropic.claude-sonnet-4-6",
-    "BEDROCK_VOICE_MODEL": "amazon.nova-2-sonic-v1:0",
-    "DATA_BUCKET": "sdt-prod-databucket-00boigfuwsgi",
-    "FRONTEND_ORIGIN": "https://d2n18reac1wo1o.cloudfront.net",
-    "JWT_SECRET": "sdt-local-dev-secret-k8x2Qm9vPnW4rT7y",
-    "NODE_ENV": "production"
-}
+Error: Failed to create changeset for the stack: sdt-prod, ex: Waiter ChangeSetCreateComplete failed: Waiter encountered a terminal failure state: For expression "Status" we matched expected path: "FAILED" Status: FAILED. Reason: The following hook(s)/validation failed: [AWS::EarlyValidation::PropertyValidation]. To troubleshoot Early Validation errors, use the DescribeEvents API for detailed failure information.
 
