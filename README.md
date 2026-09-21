@@ -447,3 +447,9 @@ sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifac
 
 FUNC=$(aws cloudformation describe-stack-resources --stack-name sdt-prod --region us-east-1 --query "StackResources[?LogicalResourceId=='ApiFunction'].PhysicalResourceId" --output text)
 MSYS_NO_PATHCONV=1 aws logs tail /aws/lambda/$FUNC --region us-east-1 --since 5m
+
+
+
+aws cloudformation list-stacks --region us-east-1 --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE --query "StackSummaries[].StackName"
+aws ecr describe-repositories --region us-east-1 --query "repositories[].repositoryName"
+aws s3 ls | grep sdt-prod
