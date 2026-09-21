@@ -531,3 +531,10 @@ aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --qu
 
 
 aws cloudformation rollback-stack --stack-name sdt-prod --region us-east-1 && aws cloudformation wait stack-rollback-complete --stack-name sdt-prod --region us-east-1
+
+
+
+./infra/build-voice-codebuild.sh sdt-prod us-east-1
+
+
+aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "length(imageDetails)" --output text
