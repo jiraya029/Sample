@@ -342,9 +342,35 @@ EOF
 bash fixpass.sh
 
 
+
+
+
+
 echo "TEXT_MODEL_ID=$TEXT_MODEL_ID"
 echo "VOICE_MODEL_ID=$VOICE_MODEL_ID"
 
 
 export TEXT_MODEL_ID="anthropic.claude-sonnet-4-6-XXXXXXXX-v1:0"   # your real 4.6 ID from the console
 export VOICE_MODEL_ID="amazon.nova-2-sonic-v1:0"                    # your real Nova 2 ID from the console
+
+
+
+
+
+echo '#!/usr/bin/env bash' > fixpass.sh
+echo 'set -euo pipefail' >> fixpass.sh
+echo 'STACK=sdt-prod' >> fixpass.sh
+echo 'REGION=us-east-1' >> fixpass.sh
+echo 'EMAIL=admin@servicedesk.local' >> fixpass.sh
+echo 'NEWPASS="ChangeMe123"' >> fixpass.sh
+echo 'npm install bcryptjs --no-save --no-audit --no-fund >/dev/null' >> fixpass.sh
+echo 'BUCKET=$(aws cloudformation describe-stacks --stack-name "$STACK" --region "$REGION" --query "Stacks[0].Outputs[?OutputKey==\x27DataBucketName\x27].OutputValue" --output text)' >> fixpass.sh
+echo 'echo "Data bucket: $BUCKET"' >> fixpass.sh
+echo 'EMAIL_HASH=$(node -e "console.log(require(\x27crypto\x27).createHash(\x27sha256\x27).update(process.argv[1]).digest(\x27hex\x27))" "$EMAIL")' >> fixpass.sh
+echo 'aws s3 cp "s3://$BUCKET/index/users-by-email/$EMAIL_HASH.json" /tmp/idx.json --region "$REGION"' >> fixpass.sh
+echo 'USER_ID=$(node -e "console.log(JSON.parse(require(\x27fs\x27).readFileSync(\x27/tmp/idx.json\x27,\x27utf8\x27)).userId)")' >> fixpass.sh
+echo 'echo "User id: $USER_ID"' >> fixpass.sh
+echo 'aws s3 cp "s3://$BUCKET/users/by-id/$USER_ID.json" /tmp/user.json --region "$REGION"' >> fixpass.sh
+echo 'node -e "const b=require(\x27bcryptjs\x27);const fs=require(\x27fs\x27);const u=JSON.parse(fs.readFileSync(\x27/tmp/user.json\x27,\x27utf8\x27));u.password_hash=b.hashSync(process.argv[1],10);u.session_epoch=(u.session_epoch||1)+1;u.failed_logins=0;u.locked_until=null;fs.writeFileSync(\x27/tmp/user.json\x27,JSON.stringify(u));console.log(\x27patched\x27,u.id,u.email);" "$NEWPASS"' >> fixpass.sh
+echo 'aws s3 cp /tmp/user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region "$REGION"' >> fixpass.sh
+echo 'echo "Done. New password for $EMAIL is: $NEWPASS"' >> fixpass.sh
