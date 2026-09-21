@@ -588,3 +588,9 @@ grep -n "FRONTEND_ORIGIN\|const allowed\|reject(socket, 403)" lib/voiceGateway.j
 
 
 grep -n "return reject(socket, 403)" lib/voiceGateway.js
+
+
+   IMAGE=$(./infra/build-voice-codebuild.sh sdt-prod us-east-1 | tail -1) && echo "Using image: $IMAGE" && sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" VoiceImageUri="$IMAGE" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+      SVC_ID=$(aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.ServiceId" --output text) && MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 5m
