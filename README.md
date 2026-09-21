@@ -192,3 +192,12 @@ sam deploy -t infra/template.yaml --stack-name sdt-prod --region us-east-1 --res
   --parameter-overrides JwtSecret="$JWT_SECRET" VoiceImageUri="$VOICE_IMAGE" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" 2>&1 | tail -60
 
 aws cloudformation describe-stacks --stack-name aws-sam-cli-managed-default --region us-east-1 --query "Stacks[0].StackStatus" --output text
+
+
+
+aws cloudformation describe-stack-resources --stack-name sdt-prod-voice-build-helper --region us-east-1 --query "StackResources[?LogicalResourceId=='SourceBucket'].PhysicalResourceId" --output text
+
+
+aws s3 rm s3://<paste-the-bucket-name-here> --recursive --region us-east-1
+aws cloudformation delete-stack --stack-name sdt-prod-voice-build-helper --region us-east-1
+aws cloudformation wait stack-delete-complete --stack-name sdt-prod-voice-build-helper --region us-east-1
