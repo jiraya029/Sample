@@ -436,3 +436,6 @@ sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifac
 
 
 curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
+
+
+https://d2n18reac1wo1o.cloudfront.net/chat
