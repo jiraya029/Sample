@@ -538,3 +538,8 @@ aws cloudformation rollback-stack --stack-name sdt-prod --region us-east-1 && aw
 
 
 aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "length(imageDetails)" --output text
+
+
+export VOICE_TAG="20260921152007"
+
+sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" VoiceImageUri="786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice:$VOICE_TAG" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
