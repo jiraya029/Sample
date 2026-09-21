@@ -606,3 +606,14 @@ curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
 aws ecr delete-repository --repository-name sdt-prod-voice --region us-east-1 --force
 
 sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+
+aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[].{Name:ServiceName,Status:Status}"
+
+
+
+aws cloudformation update-stack --stack-name sdt-prod --region us-east-1 --use-previous-template --capabilities CAPABILITY_IAM --parameters ParameterKey=VoiceImageUri,ParameterValue= ParameterKey=JwtSecret,UsePreviousValue=true ParameterKey=TextModelId,UsePreviousValue=true ParameterKey=VoiceModelId,UsePreviousValue=true ParameterKey=SmtpUrl,UsePreviousValue=true ParameterKey=MailFrom,UsePreviousValue=true ParameterKey=AdminEmail,UsePreviousValue=true ParameterKey=AdminPassword,UsePreviousValue=true ParameterKey=SkipOtpEmails,UsePreviousValue=true && aws cloudformation wait stack-update-complete --stack-name sdt-prod --region us-east-1 && echo "DONE - voice removed"
+
+
+aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[].ServiceName" && curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
