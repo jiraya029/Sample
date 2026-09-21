@@ -1,0 +1,91 @@
+2026-09-21 06:38:44,574 | Unable to export
+Traceback (most recent call last):
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\s3_uploader.py", line 115, in upload
+    future.result()
+    ~~~~~~~~~~~~~^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\s3transfer\futures.py", line 111, in result
+    return self._coordinator.result()
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\s3transfer\futures.py", line 287, in result
+    raise self._exception
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\s3transfer\tasks.py", line 142, in __call__
+    return self._execute_main(kwargs)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\s3transfer\tasks.py", line 165, in _execute_main
+    return_value = self._main(**kwargs)
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\s3transfer\tasks.py", line 351, in _main
+    response = client.create_multipart_upload(
+        Bucket=bucket, Key=key, **extra_args
+    )
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\botocore\client.py", line 606, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\botocore\context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\botocore\client.py", line 1094, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.errorfactory.NoSuchBucket: An error occurred (NoSuchBucket) when calling the CreateMultipartUpload operation: The specified bucket does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\packageable_resources.py", line 138, in export
+    self.do_export(resource_id, resource_dict, parent_dir)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\packageable_resources.py", line 170, in do_export
+    uploaded_url = upload_local_artifacts(
+        self.RESOURCE_TYPE,
+    ...<7 lines>...
+        self.cache,
+    )
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\utils.py", line 196, in upload_local_artifacts
+    result = zip_and_upload(
+        local_path,
+    ...<2 lines>...
+        zip_method=make_zip_with_lambda_permissions if resource_type in LAMBDA_LOCAL_RESOURCES else make_zip,
+    )
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\utils.py", line 225, in zip_and_upload
+    return uploader.upload_with_dedup(zip_file, precomputed_md5=md5_hash, extension=extension)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\s3_uploader.py", line 144, in upload_with_dedup
+    return self.upload(file_name, remote_path)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Amazon\AWSSAMCLI\runtime\Lib\site-packages\samcli\lib\package\s3_uploader.py", line 122, in upload
+    raise NoSuchBucketError(bucket_name=self.bucket_name) from ex
+samcli.commands.package.exceptions.NoSuchBucketError:
+S3 Bucket does not exist.
+2026-09-21 06:38:44,641 | Telemetry endpoint configured to be https://aws-serverless-tools-telemetry.us-west-2.amazonaws.com/metrics
+2026-09-21 06:38:44,923 | No container socket path in global storage, falling back to DOCKER_HOST detection:
+2026-09-21 06:38:44,925 | Telemetry endpoint configured to be https://aws-serverless-tools-telemetry.us-west-2.amazonaws.com/metrics
+2026-09-21 06:38:44,925 | Sending Telemetry: {'metrics': [{'commandRun': {'requestId': '713d91ef-77ca-4d9c-affd-895a9077c848', 'installationId':
+'a018c579-e0e5-4491-81d9-abe55c24047f', 'sessionId': '49003feb-3e1d-4da7-9776-43d389db170b', 'executionEnvironment': 'CLI', 'ci': False, 'pyversion': '3.13.13',
+'samcliVersion': '1.166.2', 'osPlatform': 'Windows', 'awsProfileProvided': False, 'debugFlagProvided': True, 'region': 'us-east-1', 'commandName': 'sam deploy',
+'metricSpecificAttributes': {'projectType': 'CFN', 'gitOrigin': None, 'projectName': 'bcb563e1d419a19eb779d0f4578c72e533600d7a39e23d56ff6f3327a604ed63', 'initialCommit':
+None, 'containerEngine': 'docker-default', 'adminContainerPreference': None}, 'duration': 63264, 'exitReason': 'ExportFailedError', 'exitCode': 1}}]}
+2026-09-21 06:38:44,926 | Unable to find Click Context for getting session_id.
+2026-09-21 06:38:44,930 | No container socket path in global storage, falling back to DOCKER_HOST detection:
+2026-09-21 06:38:44,931 | Sending Telemetry: {'metrics': [{'events': {'requestId': 'ccd5a82f-955b-4c9f-9d53-105f41b0155f', 'installationId':
+'a018c579-e0e5-4491-81d9-abe55c24047f', 'sessionId': '49003feb-3e1d-4da7-9776-43d389db170b', 'executionEnvironment': 'CLI', 'ci': False, 'pyversion': '3.13.13',
+'samcliVersion': '1.166.2', 'osPlatform': 'Windows', 'commandName': 'sam deploy', 'metricSpecificAttributes': {'events': [{'event_name': 'SamConfigFileExtension',
+'event_value': '.toml', 'thread_id': 'c296c118dcaa4fbdafc93d789420ebfe', 'time_stamp': '2026-09-21 01:07:41.302659+00', 'exception_name': None}, {'event_name':
+'SamConfigFileExtension', 'event_value': '.toml', 'thread_id': '686cdceea0a24115a424b7332546c617', 'time_stamp': '2026-09-21 01:07:41.352591+00', 'exception_name': None}],
+'containerEngine': 'docker-default'}}}]}
+2026-09-21 06:38:45,787 | HTTPSConnectionPool(host='aws-serverless-tools-telemetry.us-west-2.amazonaws.com', port=443): Read timed out. (read timeout=0.1)
+2026-09-21 06:38:45,789 | HTTPSConnectionPool(host='aws-serverless-tools-telemetry.us-west-2.amazonaws.com', port=443): Read timed out. (read timeout=0.1)
+Error: Unable to upload artifact ../ referenced by CodeUri parameter of ApiFunction resource.
+
+S3 Bucket does not exist.
+echo $
+echo $
+bash: --parameter-overrides: command not found
+echo $
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ echo $
+$
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ ^C
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$
