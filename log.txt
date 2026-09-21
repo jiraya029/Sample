@@ -1,10 +1,268 @@
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "length(imageDetails)" --output text && aws ecr describe-images --repository-name sdt-prod-voice --region us-east-1 --query "imageDetails[].imageTags[]" --output text
-0
+$ ./infra/build-voice-codebuild.sh sdt-prod us-east-1
+Making sure the ECR repository exists (idempotent)...
+Deploying the CodeBuild helper stack (idempotent - safe to re-run)...
+
+Waiting for changeset to be created..
+
+No changes to deploy. Stack sdt-prod-voice-build-helper is up to date
+Zipping source (excluding node_modules, .git, test fixtures)...
+  (zip not found - using PowerShell Compress-Archive instead)
+Unable to find type [System.IO.Compression.ZipArchiveMode].
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:4 char:56
++ ... pFile]::Open($ZipPath, [System.IO.Compression.ZipArchiveMode]::Create ...
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (System.IO.Compression.ZipArchiveMode:TypeName) [], RuntimeException
+    + FullyQualifiedErrorId : TypeNotFound
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+Exception calling "CreateEntryFromFile" with "3" argument(s): "Value cannot be null.
+Parameter name: destination"
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:7 char:3
++   [System.IO.Compression.ZipFileExtensions]::CreateEntryFromFile($zip ...
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : ArgumentNullException
+
+You cannot call a method on a null-valued expression.
+At C:\Users\Administrator\AppData\Local\Temp\2\tmp.EO2TJBOBd6.ps1:9 char:1
++ $zip.Dispose()
++ ~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [], RuntimeException
+    + FullyQualifiedErrorId : InvokeMethodOnNull
+
+Verifying the archive actually contains infra/buildspec-voice.yml...
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ aws cloudformation rollback-stack --stack-name sdt-prod --region us-east-1 && aws cloudformation wait stack-rollback-complete --stack-name sdt-prod --region us-east-1
-{
-    "StackId": "arn:aws:cloudformation:us-east-1:786944814826:stack/sdt-prod/66830860-b55f-11f1-8c9e-12bcc80b582d",
-    "OperationId": "7cb3a8df-9ee8-4bb4-a5ac-e3f180fce3d6"
-}
+$
