@@ -236,3 +236,13 @@ echo "window.SDT_CONFIG = { apiBase: 'https://pczygyvsg5.execute-api.us-east-1.a
 aws s3 cp public/assets/config.js s3://sdt-prod-frontendbucket-c1xmerdfbbd3/assets/config.js --region us-east-1 --cache-control "no-cache"
 aws s3 sync public/ s3://sdt-prod-frontendbucket-c1xmerdfbbd3/ --region us-east-1 --delete --cache-control "public, max-age=300"
 aws cloudfront create-invalidation --distribution-id E2KDDS6JD28FB6 --paths "/*"
+
+'
+BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendBucketName'].OutputValue" --output text)
+echo "Bucket is: $BUCKET"
+
+DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text)
+
+aws s3 sync public/ "s3://$BUCKET/" --region us-east-1 --delete --cache-control "public, max-age=300"
+aws s3 cp public/assets/config.js "s3://$BUCKET/assets/config.js" --region us-east-1 --cache-control "no-cache"
+aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*"
