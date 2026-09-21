@@ -246,3 +246,6 @@ DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east
 aws s3 sync public/ "s3://$BUCKET/" --region us-east-1 --delete --cache-control "public, max-age=300"
 aws s3 cp public/assets/config.js "s3://$BUCKET/assets/config.js" --region us-east-1 --cache-control "no-cache"
 aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*"
+
+
+aws logs tail /aws/lambda/sdt-prod-ApiFunction --region us-east-1 --since 5m
