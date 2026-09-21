@@ -1,24 +1,21 @@
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ ^C
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ ARN=$(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) echo "$ARN"
-
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ SVC_ID=$(aws apprunner describe-service --service-arn "$ARN" --region us-east-1 --query "Service.ServiceId" --output text) echo "$SVC_ID"
+$ aws apprunner describe-service --service-arn "$ARN" --region us-east-1 --query "Service.{Status:Status,ServiceId:ServiceId}" --output text
 
 aws: [ERROR]: An error occurred (ParamValidation): Parameter validation failed:
 Invalid length for parameter ServiceArn, value: 0, valid min length: 1
 
-
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 30m
+$ aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.Status" --output text
 
-aws: [ERROR]: An error occurred (ResourceNotFoundException) when calling the FilterLogEvents operation: The specified log group does not exist.
+aws: [ERROR]: An error occurred (ParamValidation): argument --service-arn: expected one argument
 
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ ^C
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
 $
