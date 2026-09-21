@@ -497,3 +497,7 @@ MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/service"
 
 
 aws apprunner describe-service --service-arn "$ARN" --region us-east-1 --query "Service.{Status:Status,ServiceId:ServiceId}" --output text
+
+
+
+aws apprunner describe-service --service-arn $(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text) --region us-east-1 --query "Service.Status" --output text
