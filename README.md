@@ -201,3 +201,10 @@ aws cloudformation describe-stack-resources --stack-name sdt-prod-voice-build-he
 aws s3 rm s3://<paste-the-bucket-name-here> --recursive --region us-east-1
 aws cloudformation delete-stack --stack-name sdt-prod-voice-build-helper --region us-east-1
 aws cloudformation wait stack-delete-complete --stack-name sdt-prod-voice-build-helper --region us-east-1
+
+
+aws sts get-caller-identity --query Account --output text
+
+VOICE_IMAGE="786944814826.dkr.ecr.us-east-1.amazonaws.com/sdt-prod-voice:PASTE_TAG_HERE" ./infra/deploy.sh sdt-prod us-east-1 --with-voice
+
+./infra/deploy.sh sdt-prod us-east-1
