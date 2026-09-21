@@ -217,3 +217,5 @@ sam deploy --debug --stack-name sdt-prod --region us-east-1 --resolve-s3 --capab
 
 
 "/c/Program Files/Amazon/AWSSAMCLI/bin/sam.cmd" deploy --debug --stack-name sdt-prod --region us-east-1 --resolve-s3 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" VoiceImageUri="$VOICE_IMAGE" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" 2>&1 | tail -40
+
+export MAIL_FROM="darwinfrancis19@gmail.com"
