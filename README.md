@@ -408,3 +408,17 @@ grep -c "SKIP_OTP_EMAILS" server.js
 
 
 grep -n "startOtp(res, user, 'login')" server.js
+
+
+node -e 'const fs=require("fs");let s=fs.readFileSync("server.js","utf8");if(s.includes("SKIP_OTP_EMAILS")){console.log("already patched");process.exit(0);}const needle="await db.clearFailedLogins(user.id);";const idx=s.indexOf(needle);if(idx===-1){console.log("ANCHOR NOT FOUND");process.exit(1);}const lineEnd=s.indexOf("\n",idx)+1;const inject="\n    const skipOtpEmails = (process.env.SKIP_OTP_EMAILS || \"\").split(\",\").map(x => x.trim().toLowerCase()).filter(Boolean);\n    if (skipOtpEmails.includes(email)) {\n      await db.markEmailVerified(user.id);\n      auth.setAuthCookie(res, auth.issueToken(user));\n      return res.json(publicUser(user));\n    }\n";s=s.slice(0,lineEnd)+inject+s.slice(lineEnd);fs.writeFileSync("server.js",s);console.log("patched, new length", s.length);'
+
+
+grep -c "SKIP_OTP_EMAILS" server.js
+
+
+sam build -t infra/template.yaml
+
+
+sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
