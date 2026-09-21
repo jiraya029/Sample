@@ -649,3 +649,8 @@ EOF
 echo "window.SDT_CONFIG = { apiBase: 'https://pczygyvsg5.execute-api.us-east-1.amazonaws.com' };" > public/assets/config.js && BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendBucketName'].OutputValue" --output text) && DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text) && aws s3 cp public/assets/config.js "s3://$BUCKET/assets/config.js" --region us-east-1 --cache-control "no-cache" && aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/assets/config.js" --query "Invalidation.Status" --output text
 
 curl -s https://d2n18reac1wo1o.cloudfront.net/assets/config.js
+
+
+DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text) && MSYS_NO_PATHCONV=1 aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*" --query "Invalidation.Status" --output text
+
+echo 'export JWT_SECRET="sdt-local-dev-secret-k8x2Qm9vPnW4rT7y"' > ~/sdt-env.sh && echo 'export TEXT_MODEL_ID="us.anthropic.claude-sonnet-4-6"' >> ~/sdt-env.sh && echo 'export VOICE_MODEL_ID="amazon.nova-2-sonic-v1:0"' >> ~/sdt-env.sh && echo 'export SMTP_URL="smtps://darwinfrancis19@gmail.com:nfplactpldotvfhp@smtp.gmail.com:465"' >> ~/sdt-env.sh && echo 'export MAIL_FROM="darwinfrancis19@gmail.com"' >> ~/sdt-env.sh && echo 'export ADMIN_EMAIL="admin@servicedesk.local"' >> ~/sdt-env.sh && echo 'export ADMIN_PASSWORD="Admin@123"' >> ~/sdt-env.sh && echo 'export SKIP_OTP_EMAILS="admin@servicedesk.local"' >> ~/sdt-env.sh && wc -l ~/sdt-env.sh
