@@ -190,3 +190,5 @@ sam deploy -t infra/template.yaml --stack-name sdt-prod --region us-east-1 --res
 
   sam deploy -t infra/template.yaml --stack-name sdt-prod --region us-east-1 --resolve-s3 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --debug \
   --parameter-overrides JwtSecret="$JWT_SECRET" VoiceImageUri="$VOICE_IMAGE" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" 2>&1 | tail -60
+
+aws cloudformation describe-stacks --stack-name aws-sam-cli-managed-default --region us-east-1 --query "Stacks[0].StackStatus" --output text
