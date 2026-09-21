@@ -231,3 +231,8 @@ aws s3 mb s3://sdt-prod-artifacts-786944814826 --region us-east-1
 /c/PROGRA~1/Amazon/AWSSAMCLI/bin/sam.cmd deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD"
 
 aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs" --output table
+
+echo "window.SDT_CONFIG = { apiBase: 'https://pczygyvsg5.execute-api.us-east-1.amazonaws.com' };" > public/assets/config.js
+aws s3 cp public/assets/config.js s3://sdt-prod-frontendbucket-c1xmerdfbbd3/assets/config.js --region us-east-1 --cache-control "no-cache"
+aws s3 sync public/ s3://sdt-prod-frontendbucket-c1xmerdfbbd3/ --region us-east-1 --delete --cache-control "public, max-age=300"
+aws cloudfront create-invalidation --distribution-id E2KDDS6JD28FB6 --paths "/*"
