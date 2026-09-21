@@ -469,3 +469,9 @@ aws apprunner pause-service --service-arn "$ARN" --region us-east-1
 
 
 aws apprunner resume-service --service-arn "$ARN" --region us-east-1
+
+
+
+aws logs describe-log-groups --region us-east-1 --query "logGroups[?contains(logGroupName, 'apprunner/sdt-prod-voice')].logGroupName" --output text
+
+MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/PASTE_THE_ID_HERE/application" --region us-east-1 --since 15m
