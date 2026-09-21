@@ -253,3 +253,7 @@ aws logs tail /aws/lambda/sdt-prod-ApiFunction --region us-east-1 --since 5m
 aws cloudformation describe-stack-resources --stack-name sdt-prod --region us-east-1 --query "StackResources[?LogicalResourceId=='ApiFunction'].PhysicalResourceId" --output text
 
 MSYS_NO_PATHCONV=1 aws logs tail /aws/lambda/PASTE_REAL_NAME_HERE --region us-east-1 --since 15m
+
+MSYS_NO_PATHCONV=1 aws logs tail /aws/lambda/sdt-prod-ApiFunction-Mu2lg4dPesdJ --region us-east-1 --since 2h
+
+MSYS_NO_PATHCONV=1 aws logs tail /aws/lambda/sdt-prod-ApiFunction-Mu2lg4dPesdJ --region us-east-1 --follow
