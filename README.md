@@ -483,3 +483,14 @@ echo "$SVC_ID"
 MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 20m
 
 MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/service" --region us-east-1 --since 20m
+
+
+ARN=$(aws apprunner list-services --region us-east-1 --query "ServiceSummaryList[?ServiceName=='sdt-prod-voice'].ServiceArn" --output text)
+echo "$ARN"
+
+SVC_ID=$(aws apprunner describe-service --service-arn "$ARN" --region us-east-1 --query "Service.ServiceId" --output text)
+echo "$SVC_ID"
+
+MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/application" --region us-east-1 --since 30m
+
+MSYS_NO_PATHCONV=1 aws logs tail "/aws/apprunner/sdt-prod-voice/$SVC_ID/service" --region us-east-1 --since 30m
