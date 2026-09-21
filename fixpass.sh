@@ -20,25 +20,26 @@ echo "Data bucket: $BUCKET"
 
 EMAIL_HASH=$(node -e "console.log(require('crypto').createHash('sha256').update(process.argv[1]).digest('hex'))" "$EMAIL")
 
-aws s3 cp "s3://$BUCKET/index/users-by-email/$EMAIL_HASH.json" /tmp/idx.json --region "$REGION"
-USER_ID=$(node -e "console.log(JSON.parse(require('fs').readFileSync('/tmp/idx.json','utf8')).userId)")
+aws s3 cp "s3://$BUCKET/index/users-by-email/$EMAIL_HASH.json" ./_idx.json --region "$REGION"
+USER_ID=$(node -e "console.log(JSON.parse(require('fs').readFileSync('./_idx.json','utf8')).userId)")
 echo "User id: $USER_ID"
 
-aws s3 cp "s3://$BUCKET/users/by-id/$USER_ID.json" /tmp/user.json --region "$REGION"
+aws s3 cp "s3://$BUCKET/users/by-id/$USER_ID.json" ./_user.json --region "$REGION"
 
 node -e "
 const bcrypt = require('bcryptjs');
 const fs = require('fs');
-const u = JSON.parse(fs.readFileSync('/tmp/user.json', 'utf8'));
+const u = JSON.parse(fs.readFileSync('./_user.json', 'utf8'));
 u.password_hash = bcrypt.hashSync(process.argv[1], 10);
 u.session_epoch = (u.session_epoch || 1) + 1;   // invalidates any existing sessions/trusted devices
 u.failed_logins = 0;
 u.locked_until = null;
-fs.writeFileSync('/tmp/user.json', JSON.stringify(u));
+fs.writeFileSync('./_user.json', JSON.stringify(u));
 console.log('patched user', u.id, u.email);
 " "$NEWPASS"
 
-aws s3 cp /tmp/user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region "$REGION"
+aws s3 cp ./_user.json "s3://$BUCKET/users/by-id/$USER_ID.json" --region "$REGION"
+rm -f ./_idx.json ./_user.json
 
 echo ""
 echo "Done. New password for $EMAIL is: $NEWPASS"
