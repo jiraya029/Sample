@@ -385,3 +385,13 @@ export SKIP_OTP_EMAILS="admin@servicedesk.local"
 
 
 echo "JWT=$JWT_SECRET TEXT=$TEXT_MODEL_ID VOICE=$VOICE_MODEL_ID SMTP=$SMTP_URL MAIL=$MAIL_FROM ADMIN=$ADMIN_EMAIL PASS=$ADMIN_PASSWORD SKIP=$SKIP_OTP_EMAILS"
+
+
+export SKIP_OTP_EMAILS="admin@servicedesk.local"
+
+
+
+/c/PROGRA~1/Amazon/AWSSAMCLI/bin/sam.cmd deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS"
+
+
+curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
