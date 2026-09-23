@@ -688,3 +688,14 @@ BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-ea
 
 
 BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendBucketName'].OutputValue" --output text) && DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text) && aws s3 sync public/ "s3://$BUCKET/" --region us-east-1 --delete --cache-control "public, max-age=300" && MSYS_NO_PATHCONV=1 aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*"
+
+
+
+source ~/sdt-env.sh
+
+
+echo "JWT=[$JWT_SECRET]"
+
+sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS" AllowedEmailDomains="hcltech.com,hcl.com"
+
+
