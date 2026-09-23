@@ -667,7 +667,15 @@ curl -s https://d2n18reac1wo1o.cloudfront.net/assets/config.js
 
 https://www.nvidia.com/en-us/training/academy/course-player/?id=course:15139849
 
+cd ~/Documents/service-desk-trainer-v4-serverless
+pwd
 
+grep -c "SESSION_SUPERSEDED" server.js
+grep -c "force-logout" server.js
+
+npm test
+
+unzip -o ~/Downloads/single-session-monitoring.zip -d ~/Documents/service-desk-trainer-v4-serverless
 
 
 sam build -t infra/template.yaml
