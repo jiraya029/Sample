@@ -705,3 +705,12 @@ BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-ea
 
 
 curl -s https://d2n18reac1wo1o.cloudfront.net/assets/config.js
+
+
+cd ~/Documents/service-desk-trainer-v4-serverless
+source ~/sdt-env.sh
+curl -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
+
+(Invoke-WebRequest -Uri "https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health").Content
+
+curl.exe -s https://pczygyvsg5.execute-api.us-east-1.amazonaws.com/api/health
