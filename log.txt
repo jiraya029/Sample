@@ -1,207 +1,17 @@
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents
-$ pwd
-/c/Users/Administrator/Documents
 
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents
-$ unzip -o ~/Downloads/single-session-monitoring.zip -d ~/Documents/service-desk-trainer-v4-serverless
-Archive:  /c/Users/Administrator/Downloads/single-session-monitoring.zip
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/public/assets/app.css
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/public/assets/app.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/public/assets/pages/dashboard.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/public/assets/pages/admin.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/public/assets/pages/login.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/public/dashboard.html
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/README.md
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/test/serverless_test.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/test/s3db_test.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/auth.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/lib/s3db.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/lib/mailer.js
-  inflating: /c/Users/Administrator/Documents/service-desk-trainer-v4-serverless/server.js
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents
-$ grep -c "SESSION_SUPERSEDED" server.js
-grep: server.js: No such file or directory
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents
-$ ls
- Codex/                     'My Music'@          'Work Folder'/
-'Custom Office Templates'/  'My Pictures'@        desktop.ini
-'Default Project'/          'My Videos'@          service-desk-trainer-v4-serverless/
- GitHub/                     WindowsPowerShell/   service-desk-trainer-v4-serverless.zip
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents
-$ cd service-desk-trainer-v4-serverless
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ ls
-Dockerfile.voice         auth.js      node_modules/          patch.js
-README.md                fixpass.sh*  package-lock.json      public/
-SETUP_GUIDE.md           infra/       package.json           server.js
-WINDOWS_DEPLOY_NOTES.md  lambda/      patch-voice-diag.js    test/
-WINDOWS_SAM_CMD_FIX.md   lib/         patch-voice-origin.js  voice-server.js
+$ echo "window.SDT_CONFIG = { apiBase: 'https://pczygyvsg5.execute-api.us-east-1.amazonaws.com' };" > public/assets/config.js
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ grep -c "SESSION_SUPERSEDED" server.js
-0
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ grep -c "force-logout" server.js
-2
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ grep -c "SESSION_SUPERSEDED" server.js
-0
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ grep -c "force-logout" server.js
-2
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ npm test
-
-> servicedesk-trainer@4.0.0 test
-> node test/s3db_test.js && node test/bedrock_voice_test.js && node test/serverless_test.js
-
-PASS createUser assigns an incrementing id
-PASS findUserByEmail is case-insensitive
-PASS findUserBySapId finds the same row
-PASS new user starts unverified with session_epoch 1
-PASS duplicate verified-path email is rejected  -> Email already registered.
-PASS setUserPassword bumps session_epoch
-PASS unverified squat account created
-PASS reclaim overwrites an unverified row in place (same id)
-PASS reclaim frees the old SAP id index and claims the new one
-PASS a verified account can never be reclaimed
-PASS not locked before threshold
-PASS locked_until set at the 10th failure
-PASS clearFailedLogins resets the lock
-PASS wrong code increments attempts, returns wrong
-PASS locked after OTP_MAX_ATTEMPTS wrong guesses
-PASS correct code succeeds on a fresh otp
-PASS a used code cannot be replayed
-PASS dummyVerifyOtp always returns wrong without throwing
-PASS pending signup does not create a user or reserve the email/SAP id
-PASS pending signup is readable while unexpired
-PASS wrong code -> wrong
-PASS 5 wrong codes -> locked, even with the right code
-satisfaction":15,"status":"ongoing"}
-PASS streamJson emitted growing partials ending at the full reply  -> 3 partials
-PASS request forces the named tool
-PASS request carries system prompt + model id
-PASS generateJson returns tool input  -> {"overall_score":81,"verdict":"ok"}
-PASS throttling -> 429 with safe message  -> The client simulator is busy right now. Try again in a moment.
-PASS bad credentials -> 503 misconfigured  -> The client simulator is misconfigured on this server.
-PASS voice session emits ready  -> ready,transcript,transcript
-PASS USER text -> agent transcript (final)
-PASS ASSISTANT speculative then FINAL -> client transcript with final flags  -> [false,true]
-PASS audio decoded to PCM bytes
-PASS INTERRUPTED -> interrupted event
-PASS END_TURN audio -> turn_end
-PASS usage relayed
-PASS inbound protocol order: sessionStart, promptStart, system text, audio contentStart  -> sessionStart,promptStart,contentStart,textInput,contentEnd,contentStart,audioInput
-PASS system block is TEXT/SYSTEM, audio block is 16kHz lpcm
-PASS promptStart requests 24kHz speech with the mood voice
-PASS audio chunk forwarded as base64 audioInput
-PASS system prompt has no JSON instructions
-PASS hang-up sends contentEnd, promptEnd, sessionEnd  -> contentEnd,promptEnd,sessionEnd
-PASS closed event emitted once
-PASS audio after close is dropped
-
-ALL BEDROCK/VOICE TESTS PASS
-PASS health via Lambda -> 200, storage s3, serverless  -> {"ok":true,"textModel":"us.anthropic.claude-sonnet-4-5-20250929-v1:0","region":"us-east-1","ai":true,"voice":true,"db":true,"storage":"s3","mail":true,"otp":true,"otpBypassActive":true,"serverless":true}
-PASS CORS echoes the allowed origin with credentials
-PASS CORS does not echo an unknown origin
-PASS preflight -> 204 with methods
-PASS catalog exposes the allowed email domains for the login-page hint  -> ["example.com","hcltech.com"]
-[s3db] Seeded initial admin account for admin@servicedesk.local
-PASS signup from a non-allowed domain -> 400 with a field error naming the allowed domains  -> {"error":"Please fix the highlighted fields.","fields":{"email":"Use your @example.com or @hcltech.com work email."}}
-PASS ...and nothing was written for it
-PASS login from a non-allowed domain -> 401 with the policy message  -> {"error":"Sign in with your @example.com or @hcltech.com work email.","fields":{"email":"Use your @example.com or @hcltech.com email."}}
-PASS forgot from a non-allowed domain -> indistinguishable decoy (200, no info leak)  -> 200
-PASS signup -> 201 otpRequired + challenge (no cookie yet)  -> 201
-FAIL dev mode returns the code (no SMTP configured)
-PASS NO user row exists before verification
-PASS the SAP ID is not reserved by the pending signup either
-PASS wrong signup code -> 400, still no user  -> 400
-FAIL resend on a pending signup -> new code, still no user  -> 200
-FAIL verify -> 201, user created NOW, TWO cookies via API Gateway cookies[] (session + device)  -> 400
-PASS cross-origin cookies are SameSite=None; Secure; HttpOnly
-FAIL created user is already email-verified (no unverified accounts can exist)
-PASS a used signup challenge cannot be replayed  -> 400
-FAIL login on trusted device -> straight to session (no otpRequired)  -> {"error":"Invalid email or password."}
-FAIL /api/me with cookie -> user
-PASS catalog lists moods/scenarios, hides personas
-FAIL chat turn -> single JSON object (no SSE through API Gateway)  -> application/json; charset=utf-8
-FAIL unknown mood -> 400
-FAIL cross-origin POST with cookie but bad Origin -> 403
-FAIL score -> saved report with id  -> 401
-FAIL list own reports from S3 (summary, no transcript)
-TypeError: Cannot read properties of undefined (reading 'length')
-    at C:\Users\Administrator\Documents\service-desk-trainer-v4-serverless\test\serverless_test.js:152:66
-    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ sam build -t infra/template.yaml
-Building codeuri: C:\Users\Administrator\Documents\service-desk-trainer-v4-serverless runtime: nodejs22.x architecture: arm64 functions: ApiFunction
- Running NodejsNpmBuilder:NpmPack
- Running NodejsNpmBuilder:CopyNpmrcAndLockfile
- Running NodejsNpmBuilder:CopySource
- Running NodejsNpmBuilder:NpmInstall
- Running NodejsNpmBuilder:NpmTest
- Running NodejsNpmBuilder:CleanUpNpmrc
- Running NodejsNpmBuilder:LockfileCleanUp
-
-Build Succeeded
-
-Built Artifacts  : .aws-sam\build
-Built Template   : .aws-sam\build\template.yaml
-
-Commands you can use next
-=========================
-[*] Validate SAM template: sam validate
-[*] Invoke Function: sam local invoke
-[*] Test Function in the Cloud: sam sync --stack-name {{stack-name}} --watch
-[*] Deploy: sam deploy --guided
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ sam deploy --stack-name sdt-prod --region us-east-1 --s3-bucket sdt-prod-artifacts-786944814826 --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset --parameter-overrides JwtSecret="$JWT_SECRET" TextModelId="$TEXT_MODEL_ID" VoiceModelId="$VOICE_MODEL_ID" SmtpUrl="$SMTP_URL" MailFrom="$MAIL_FROM" AdminEmail="$ADMIN_EMAIL" AdminPassword="$ADMIN_PASSWORD" SkipOtpEmails="$SKIP_OTP_EMAILS" AllowedEmailDomains="hcltech.com,hcl.com"
-
-Usage: sam deploy [OPTIONS]
-Try 'sam deploy -h' for help.
-
-Error: Invalid value for '--parameter-overrides': JwtSecret= is not a valid format. It must look something like 'ParameterKey=KeyPairName,ParameterValue=MyKey ParameterKey=InstanceType,ParameterValue=t1.micro', 'KeyPairName=MyKey InstanceType=t1.micro', or 'file://MyParams.yaml'
-
-Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
-$ BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendBucketName'].OutputValue" --output text) && DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text) && aws s3 sync public/ "s3://$BUCKET/" --region us-east-1 --delete --cache-control "public, max-age=300" && MSYS_NO_PATHCONV=1 aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*"
-upload: public\admin.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/admin.html
-upload: public\assets\pages\login.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/login.js
-upload: public\assets\pages\index.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/index.js
-upload: public\assets\careershaper_new_logo.png to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/careershaper_new_logo.png
+$ BUCKET=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='FrontendBucketName'].OutputValue" --output text) && aws s3 cp public/assets/config.js "s3://$BUCKET/assets/config.js" --region us-east-1 --cache-control "no-cache" && DIST=$(aws cloudformation describe-stacks --stack-name sdt-prod --region us-east-1 --query "Stacks[0].Outputs[?OutputKey=='DistributionId'].OutputValue" --output text) && MSYS_NO_PATHCONV=1 aws cloudfront create-invalidation --distribution-id "$DIST" --paths "/*"
 upload: public\assets\config.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/config.js
-upload: public\assets\pages\dashboard.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/dashboard.js
-upload: public\assets\pages\chat.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/chat.js
-upload: public\assets\pages\admin.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/admin.js
-upload: public\404.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/404.html
-upload: public\assets\app.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/app.js
-upload: public\assets\app.css to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/app.css
-upload: public\assets\pages\report.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/report.js
-upload: public\assets\pages\setup.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/setup.js
-upload: public\login.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/login.html
-upload: public\assets\pages\voice.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pages/voice.js
-upload: public\report.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/report.html
-upload: public\voice.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/voice.html
-upload: public\setup.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/setup.html
-upload: public\assets\pcm-capture.worklet.js to s3://sdt-prod-frontendbucket-clxmerdfbbd3/assets/pcm-capture.worklet.js
-upload: public\chat.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/chat.html
-upload: public\dashboard.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/dashboard.html
-upload: public\index.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/index.html
 {
-    "Location": "https://cloudfront.amazonaws.com/2020-05-31/distribution/E2KDDS6JD28FB6/invalidation/I4FCPN3Z3H9K73BJPZW7455D9D",
+    "Location": "https://cloudfront.amazonaws.com/2020-05-31/distribution/E2KDDS6JD28FB6/invalidation/I49Q927QEJ1BOND8REZPIV21C6",
     "Invalidation": {
-        "Id": "I4FCPN3Z3H9K73BJPZW7455D9D",
+        "Id": "I49Q927QEJ1BOND8REZPIV21C6",
         "Status": "InProgress",
-        "CreateTime": "2026-09-23T11:49:01.986000+00:00",
+        "CreateTime": "2026-09-23T12:09:09.050000+00:00",
         "InvalidationBatch": {
             "Paths": {
                 "Quantity": 1,
@@ -209,11 +19,18 @@ upload: public\index.html to s3://sdt-prod-frontendbucket-clxmerdfbbd3/index.htm
                     "/*"
                 ]
             },
-            "CallerReference": "cli-1790164141-770124"
+            "CallerReference": "cli-1790165348-813670"
         }
     }
 }
 
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ curl -s https://d2n18reac1wo1o.cloudfront.net/assets/config.js
+window.SDT_CONFIG = { apiBase: 'https://pczygyvsg5.execute-api.us-east-1.amazonaws.com' };
+
+Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
+$ ^C
 
 Administrator@EC2AMAZ-4I1SMQ9 MINGW64 ~/Documents/service-desk-trainer-v4-serverless
 $
